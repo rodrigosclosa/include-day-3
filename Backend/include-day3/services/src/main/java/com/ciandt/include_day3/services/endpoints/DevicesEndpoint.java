@@ -36,11 +36,16 @@ public class DevicesEndpoint {
     }
 
     @ApiMethod(name = "getDevices", path = "devices", httpMethod = "GET")
-    public List<DevicesBean> getDevices(@Nullable @Named("latitude") Double latitude, @Nullable @Named("longitude") Double longitude) throws NotFoundException {
+    public List<DevicesBean> getDevices(@Nullable @Named("latitude") Float latitude, @Nullable @Named("longitude") Float longitude) throws NotFoundException {
         if(latitude == null && longitude == null)
             return devicesService.list();
         else
-            return devicesService.list(latitude, longitude);
+            return devicesService.list(latitude, longitude, null);
+    }
+
+    @ApiMethod(name = "getDevicesByLocationAndRadius", path = "devices/{latitude}/{longitude}/{raio}", httpMethod = "GET")
+    public List<DevicesBean> getDevicesByLocationAndRadius(@Named("latitude") float latitude, @Named("longitude") float longitude, @Named("raio") Double raio) throws NotFoundException {
+        return devicesService.list(latitude, longitude, raio);
     }
 
     @ApiMethod(name = "getDevice", path = "devices/{id}", httpMethod = ApiMethod.HttpMethod.GET)

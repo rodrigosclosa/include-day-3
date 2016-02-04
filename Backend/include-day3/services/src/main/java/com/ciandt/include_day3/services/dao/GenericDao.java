@@ -72,4 +72,9 @@ public class GenericDao<T> implements IGenericDao<T> {
         return ofy().load().type(clazz).filter(propName, propValue).list();
     }
 
+    @Override
+    public List<T> listByFilter(Filter filtro) {
+        return ofy().load().type(clazz).filter(filtro).list();
+    }
+
 }

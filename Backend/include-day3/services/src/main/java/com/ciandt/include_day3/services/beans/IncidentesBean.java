@@ -1,5 +1,6 @@
 package com.ciandt.include_day3.services.beans;
 
+import com.google.appengine.api.datastore.GeoPt;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
@@ -34,25 +35,22 @@ public class IncidentesBean {
     private String cidade;
     private String estado;
     @Index
-    private Double latitude;
-    @Index
-    private Double longitude;
+    private GeoPt localizacao;
     private Date data;
 
     public IncidentesBean() {
     }
 
-    public IncidentesBean(Long id, Long idUsuario, Long idTipoIncidente, String logradouro, int gravidade, int numero, String cidade, String estado, Double latitude, Double longitude, Date data) {
+    public IncidentesBean(Long id, Long idUsuario, Long idTipoIncidente, int gravidade, String logradouro, int numero, String cidade, String estado, GeoPt localizacao, Date data) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idTipoIncidente = idTipoIncidente;
-        this.logradouro = logradouro;
         this.gravidade = gravidade;
+        this.logradouro = logradouro;
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.localizacao = localizacao;
         this.data = data;
     }
 
@@ -138,20 +136,12 @@ public class IncidentesBean {
         this.estado = estado;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public GeoPt getLocalizacao() {
+        return localizacao;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocalizacao(GeoPt localizacao) {
+        this.localizacao = localizacao;
     }
 
     public Date getData() {

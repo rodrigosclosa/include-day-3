@@ -34,11 +34,21 @@ public class UsuarioEndpoint {
     }
 
     @ApiMethod(name = "getUsuarios", path = "usuarios", httpMethod = "GET")
-    public List<UsuariosBean> getUsuarios(@Nullable @Named("search") String email) throws NotFoundException {
+    public List<UsuariosBean> getUsuarios(@Nullable @Named("email") String email) throws NotFoundException {
         if(email == null || email.isEmpty())
             return usuarioService.list();
         else
             return usuarioService.list(email);
+    }
+
+    @ApiMethod(name = "getUsuariosByLocation", path = "usuarios/{latitude}/{longitude}", httpMethod = "GET")
+    public List<UsuariosBean> getUsuariosByLocation(@Named("latitude") float latitude, @Named("longitude") float longitude) throws NotFoundException {
+        return usuarioService.list(latitude, longitude, null);
+    }
+
+    @ApiMethod(name = "getUsuariosByLocationAndRadius", path = "usuarios/{latitude}/{longitude}/{raio}", httpMethod = "GET")
+    public List<UsuariosBean> getUsuariosByLocationAndRadius(@Named("latitude") float latitude, @Named("longitude") float longitude, @Named("raio") Double raio) throws NotFoundException {
+        return usuarioService.list(latitude, longitude, raio);
     }
 
     @ApiMethod(name = "getUsuario", path = "usuarios/{id}", httpMethod = ApiMethod.HttpMethod.GET)

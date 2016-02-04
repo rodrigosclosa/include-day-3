@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/_vnIIeRu9mPkd8W0GVXUA-zBd_Y\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/YJXXxrzIvgmyvfif9fZynepvWc8\"",
  "discoveryVersion": "v1",
  "id": "usuario:v1",
  "name": "usuario",
@@ -71,6 +71,20 @@
   }
  },
  "schemas": {
+  "GeoPt": {
+   "id": "GeoPt",
+   "type": "object",
+   "properties": {
+    "latitude": {
+     "type": "number",
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "float"
+    }
+   }
+  },
   "UsuariosBean": {
    "id": "UsuariosBean",
    "type": "object",
@@ -88,16 +102,11 @@
      "type": "string",
      "format": "int64"
     },
-    "latitude": {
-     "type": "number",
-     "format": "double"
+    "localizacao": {
+     "$ref": "GeoPt"
     },
     "logradouro": {
      "type": "string"
-    },
-    "longitude": {
-     "type": "number",
-     "format": "double"
     },
     "nome": {
      "type": "string"
@@ -146,10 +155,68 @@
    "id": "usuario.getUsuarios",
    "allowGet": true,
    "parameters": {
-    "search": {
+    "email": {
      "type": "string"
     }
    },
+   "returns": {
+    "$ref": "UsuariosBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "usuario.getUsuariosByLocation": {
+   "id": "usuario.getUsuariosByLocation",
+   "allowGet": true,
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude"
+   ],
+   "returns": {
+    "$ref": "UsuariosBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "usuario.getUsuariosByLocationAndRadius": {
+   "id": "usuario.getUsuariosByLocationAndRadius",
+   "allowGet": true,
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float"
+    },
+    "raio": {
+     "type": "number",
+     "required": true,
+     "format": "double"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude",
+    "raio"
+   ],
    "returns": {
     "$ref": "UsuariosBeanCollection"
    },

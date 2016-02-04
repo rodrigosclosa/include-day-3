@@ -1,14 +1,19 @@
 package com.ciandt.include_day3.services.services;
 
 import com.ciandt.include_day3.services.beans.DevicesBean;
+import com.ciandt.include_day3.services.config.Params;
 import com.ciandt.include_day3.services.dao.DevicesDao;
 import com.ciandt.include_day3.services.dao.UsuarioDao;
 import com.ciandt.include_day3.services.services.interfaces.IDevicesService;
 import com.ciandt.include_day3.services.services.interfaces.IUsuarioService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.GeoPt;
+import com.google.appengine.api.datastore.Query;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by rodrigosclosa on 29/12/15.
@@ -27,8 +32,13 @@ public class DevicesService implements IDevicesService {
     }
 
     @Override
-    public List<DevicesBean> list(Double latitude, Double longitude) throws NotFoundException {
-        List<DevicesBean> list = devicesDao.listByProperty("latitude", latitude);
+    public List<DevicesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException {
+
+        GeoPt center = new GeoPt(latitude, longitude);
+        double radius = raio == null ? Params.getInstance().getRaio() : raio;
+        Query.Filter filtro = new Query.StContainsFilter("localizacao", new Query.GeoRegion.Circle(center, radius));
+
+        List<DevicesBean> list = devicesDao.listByFilter(filtro);
 
         if(list == null || list.size() < 1) {
             throw new NotFoundException("Device não encontrado.");
@@ -58,13 +68,8 @@ public class DevicesService implements IDevicesService {
         {
             throw new ConflictException("Nome do device não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o device.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o device.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         devicesDao.insert(item);
@@ -80,13 +85,8 @@ public class DevicesService implements IDevicesService {
         {
             throw new ConflictException("Nome do device não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o device.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o device.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         DevicesBean u = devicesDao.getById(item.getId());

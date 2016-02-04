@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 
-group = 'com.ciandt.sas.gateway.services'
+group = 'com.ciandt.include_day3.services'
 archivesBaseName = 'usuario'
 version = 'v1-1.21.0-SNAPSHOT'
 

@@ -1,12 +1,18 @@
 package com.ciandt.include_day3.services.services;
 
+import com.ciandt.include_day3.services.beans.DevicesBean;
 import com.ciandt.include_day3.services.beans.UsuariosBean;
+import com.ciandt.include_day3.services.config.Params;
 import com.ciandt.include_day3.services.dao.UsuarioDao;
 import com.ciandt.include_day3.services.services.interfaces.IUsuarioService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.GeoPt;
+import com.google.appengine.api.datastore.Query;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by rodrigosclosa on 29/12/15.
@@ -29,7 +35,23 @@ public class UsuarioService implements IUsuarioService {
         List<UsuariosBean> list = usuarioDao.listByProperty("email", email);
 
         if(list == null || list.size() < 1) {
-            throw new NotFoundException("Usuário não encontrado para o e-mail " + email);
+            throw new NotFoundException(String.format("Usuário não encontrado para o e-mail: %s", email));
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<UsuariosBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException {
+
+        GeoPt center = new GeoPt(latitude, longitude);
+        double radius = raio == null ? Params.getInstance().getRaio() : raio;
+        Query.Filter filtro = new Query.StContainsFilter("localizacao", new Query.GeoRegion.Circle(center, radius));
+
+        List<UsuariosBean> list = usuarioDao.listByFilter(filtro);
+
+        if(list == null || list.size() < 1) {
+            throw new NotFoundException(String.format("Usuário não encontrado para a região informada: %f, %f", latitude, longitude));
         }
 
         return list;
@@ -72,13 +94,8 @@ public class UsuarioService implements IUsuarioService {
         {
             throw new ConflictException("Estado do usuário não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o usuário.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o usuário.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         UsuariosBean u = usuarioDao.getByProperty("email", item.getEmail());
@@ -117,13 +134,8 @@ public class UsuarioService implements IUsuarioService {
         {
             throw new ConflictException("Estado do usuário não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o usuário.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o usuário.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         UsuariosBean u = usuarioDao.getById(item.getId());

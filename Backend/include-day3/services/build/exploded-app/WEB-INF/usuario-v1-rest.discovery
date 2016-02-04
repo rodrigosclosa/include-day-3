@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/_vnIIeRu9mPkd8W0GVXUA-zBd_Y\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/YJXXxrzIvgmyvfif9fZynepvWc8\"",
  "discoveryVersion": "v1",
  "id": "usuario:v1",
  "name": "usuario",
@@ -73,6 +73,20 @@
   }
  },
  "schemas": {
+  "GeoPt": {
+   "id": "GeoPt",
+   "type": "object",
+   "properties": {
+    "latitude": {
+     "type": "number",
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "float"
+    }
+   }
+  },
   "UsuariosBean": {
    "id": "UsuariosBean",
    "type": "object",
@@ -90,16 +104,11 @@
      "type": "string",
      "format": "int64"
     },
-    "latitude": {
-     "type": "number",
-     "format": "double"
+    "localizacao": {
+     "$ref": "GeoPt"
     },
     "logradouro": {
      "type": "string"
-    },
-    "longitude": {
-     "type": "number",
-     "format": "double"
     },
     "nome": {
      "type": "string"
@@ -151,11 +160,76 @@
    "path": "usuarios",
    "httpMethod": "GET",
    "parameters": {
-    "search": {
+    "email": {
      "type": "string",
      "location": "query"
     }
    },
+   "response": {
+    "$ref": "UsuariosBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUsuariosByLocation": {
+   "id": "usuario.getUsuariosByLocation",
+   "path": "usuarios/{latitude}/{longitude}",
+   "httpMethod": "GET",
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude"
+   ],
+   "response": {
+    "$ref": "UsuariosBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUsuariosByLocationAndRadius": {
+   "id": "usuario.getUsuariosByLocationAndRadius",
+   "path": "usuarios/{latitude}/{longitude}/{raio}",
+   "httpMethod": "GET",
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "raio": {
+     "type": "number",
+     "required": true,
+     "format": "double",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude",
+    "raio"
+   ],
    "response": {
     "$ref": "UsuariosBeanCollection"
    },

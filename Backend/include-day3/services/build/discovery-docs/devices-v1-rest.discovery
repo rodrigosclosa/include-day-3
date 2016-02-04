@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/wrBBG8w3xBqI-lZ7pjbOP6fjrjc\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/HU-QpeCiDjh1aGEseMOcKP_f0ks\"",
  "discoveryVersion": "v1",
  "id": "devices:v1",
  "name": "devices",
@@ -84,13 +84,8 @@
      "type": "string",
      "format": "int64"
     },
-    "latitude": {
-     "type": "number",
-     "format": "double"
-    },
-    "longitude": {
-     "type": "number",
-     "format": "double"
+    "localizacao": {
+     "$ref": "GeoPt"
     },
     "url": {
      "type": "string"
@@ -106,6 +101,20 @@
      "items": {
       "$ref": "DevicesBean"
      }
+    }
+   }
+  },
+  "GeoPt": {
+   "id": "GeoPt",
+   "type": "object",
+   "properties": {
+    "latitude": {
+     "type": "number",
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "float"
     }
    }
   }
@@ -140,15 +149,51 @@
    "parameters": {
     "latitude": {
      "type": "number",
-     "format": "double",
+     "format": "float",
      "location": "query"
     },
     "longitude": {
      "type": "number",
-     "format": "double",
+     "format": "float",
      "location": "query"
     }
    },
+   "response": {
+    "$ref": "DevicesBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getDevicesByLocationAndRadius": {
+   "id": "devices.getDevicesByLocationAndRadius",
+   "path": "devices/{latitude}/{longitude}/{raio}",
+   "httpMethod": "GET",
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "raio": {
+     "type": "number",
+     "required": true,
+     "format": "double",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude",
+    "raio"
+   ],
    "response": {
     "$ref": "DevicesBeanCollection"
    },

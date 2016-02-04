@@ -1,5 +1,6 @@
 package com.ciandt.include_day3.services.beans;
 
+import com.google.appengine.api.datastore.GeoPt;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -19,13 +20,12 @@ public class UsuariosBean {
     private int numero;
     private String cidade;
     private String estado;
-    private Double latitude;
-    private Double longitude;
+    private GeoPt localizacao;
 
     public UsuariosBean() {
     }
 
-    public UsuariosBean(Long id, String nome, String email, String logradouro, int numero, String cidade, String estado, Double latitude, Double longitude) {
+    public UsuariosBean(Long id, String nome, String email, String logradouro, int numero, String cidade, String estado, GeoPt localizacao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -33,8 +33,7 @@ public class UsuariosBean {
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.localizacao = localizacao;
     }
 
     public Long getId() {
@@ -93,19 +92,11 @@ public class UsuariosBean {
         this.estado = estado;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public GeoPt getLocalizacao() {
+        return localizacao;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocalizacao(GeoPt localizacao) {
+        this.localizacao = localizacao;
     }
 }

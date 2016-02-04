@@ -6,13 +6,15 @@ import com.google.api.server.spi.response.NotFoundException;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by rodrigosclosa on 29/12/15.
  */
 public interface IDevicesService {
 
     List<DevicesBean> list();
-    List<DevicesBean> list(Double latitude, Double longitude) throws NotFoundException;
+    List<DevicesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException;
     DevicesBean getById(Long id) throws NotFoundException;
     void insert(DevicesBean veiculo) throws ConflictException, NotFoundException;
     void update(DevicesBean veiculo) throws ConflictException, NotFoundException;

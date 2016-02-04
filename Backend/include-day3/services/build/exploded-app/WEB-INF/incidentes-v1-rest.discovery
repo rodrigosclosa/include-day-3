@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/gZ0healYldXbED4e5aK7k6Asq0I\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/2DSb79LgTzZJK-VkpNagP7HGyUU\"",
  "discoveryVersion": "v1",
  "id": "incidentes:v1",
  "name": "incidentes",
@@ -73,6 +73,20 @@
   }
  },
  "schemas": {
+  "GeoPt": {
+   "id": "GeoPt",
+   "type": "object",
+   "properties": {
+    "latitude": {
+     "type": "number",
+     "format": "float"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "float"
+    }
+   }
+  },
   "IncidentesBean": {
    "id": "IncidentesBean",
    "type": "object",
@@ -103,16 +117,11 @@
      "type": "string",
      "format": "int64"
     },
-    "latitude": {
-     "type": "number",
-     "format": "double"
+    "localizacao": {
+     "$ref": "GeoPt"
     },
     "logradouro": {
      "type": "string"
-    },
-    "longitude": {
-     "type": "number",
-     "format": "double"
     },
     "numero": {
      "type": "integer",
@@ -168,16 +177,11 @@
      "type": "string",
      "format": "int64"
     },
-    "latitude": {
-     "type": "number",
-     "format": "double"
+    "localizacao": {
+     "$ref": "GeoPt"
     },
     "logradouro": {
      "type": "string"
-    },
-    "longitude": {
-     "type": "number",
-     "format": "double"
     },
     "nome": {
      "type": "string"
@@ -238,15 +242,51 @@
    "parameters": {
     "latitude": {
      "type": "number",
-     "format": "double",
+     "format": "float",
      "location": "query"
     },
     "longitude": {
      "type": "number",
-     "format": "double",
+     "format": "float",
      "location": "query"
     }
    },
+   "response": {
+    "$ref": "IncidentesBeanCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getIncidentesByLocationAndRadius": {
+   "id": "incidentes.getIncidentesByLocationAndRadius",
+   "path": "usuarios/{latitude}/{longitude}/{raio}",
+   "httpMethod": "GET",
+   "parameters": {
+    "latitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "longitude": {
+     "type": "number",
+     "required": true,
+     "format": "float",
+     "location": "path"
+    },
+    "raio": {
+     "type": "number",
+     "required": true,
+     "format": "double",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "latitude",
+    "longitude",
+    "raio"
+   ],
    "response": {
     "$ref": "IncidentesBeanCollection"
    },

@@ -2,6 +2,7 @@ package com.ciandt.include_day3.services.endpoints;
 
 import com.ciandt.include_day3.services.beans.IncidentesBean;
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
+import com.ciandt.include_day3.services.beans.UsuariosBean;
 import com.ciandt.include_day3.services.services.IncidentesService;
 import com.ciandt.include_day3.services.services.TipoIncidenteService;
 import com.google.api.server.spi.config.Api;
@@ -36,11 +37,16 @@ public class IncidentesEndpoint {
     }
 
     @ApiMethod(name = "getIncidentes", path = "incidentes", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<IncidentesBean> getIncidentes(@Nullable @Named("latitude") Double latitude, @Nullable @Named("longitude") Double longitude) throws NotFoundException {
+    public List<IncidentesBean> getIncidentes(@Nullable @Named("latitude") Float latitude, @Nullable @Named("longitude") Float longitude) throws NotFoundException {
         if(latitude == null || longitude == null)
             return incidentesService.list();
         else
-            return incidentesService.list(latitude, longitude);
+            return incidentesService.list(latitude, longitude, null);
+    }
+
+    @ApiMethod(name = "getIncidentesByLocationAndRadius", path = "usuarios/{latitude}/{longitude}/{raio}", httpMethod = "GET")
+    public List<IncidentesBean> getIncidentesByLocationAndRadius(@Named("latitude") float latitude, @Named("longitude") float longitude, @Named("raio") Double raio) throws NotFoundException {
+        return incidentesService.list(latitude, longitude, raio);
     }
 
     @ApiMethod(name = "getIncidente", path = "incidentes/{id}", httpMethod = ApiMethod.HttpMethod.GET)

@@ -3,6 +3,7 @@ package com.ciandt.include_day3.services.services;
 import com.ciandt.include_day3.services.beans.IncidentesBean;
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
 import com.ciandt.include_day3.services.beans.UsuariosBean;
+import com.ciandt.include_day3.services.config.Params;
 import com.ciandt.include_day3.services.dao.IncidentesDao;
 import com.ciandt.include_day3.services.dao.TipoIncidenteDao;
 import com.ciandt.include_day3.services.dao.UsuarioDao;
@@ -10,8 +11,12 @@ import com.ciandt.include_day3.services.services.interfaces.IIncidentesService;
 import com.ciandt.include_day3.services.services.interfaces.ITipoIncidenteService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.GeoPt;
+import com.google.appengine.api.datastore.Query;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by rodrigosclosa on 29/12/15.
@@ -44,8 +49,12 @@ public class IncidentesService implements IIncidentesService {
     }
 
     @Override
-    public List<IncidentesBean> list(Double latitude, Double longitude) throws NotFoundException {
-        List<IncidentesBean> list = incidentesDao.listByProperty("latitude", latitude);
+    public List<IncidentesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException {
+        GeoPt center = new GeoPt(latitude, longitude);
+        double radius = raio == null ? Params.getInstance().getRaio() : raio;
+        Query.Filter filtro = new Query.StContainsFilter("localizacao", new Query.GeoRegion.Circle(center, radius));
+
+        List<IncidentesBean> list = incidentesDao.listByFilter(filtro);
 
         if(list == null || list.size() < 1) {
             throw new NotFoundException("Incidente não encontrado");
@@ -113,13 +122,8 @@ public class IncidentesService implements IIncidentesService {
         {
             throw new ConflictException("Estado do usuário não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o usuário.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o usuário.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         incidentesDao.insert(item);
@@ -159,13 +163,8 @@ public class IncidentesService implements IIncidentesService {
         {
             throw new ConflictException("Estado do usuário não informado.");
         }
-        else if(item.getLatitude() == null || (item.getLatitude() < -90.0d && item.getLatitude() > 90.0d))
-        {
-            throw new ConflictException("Latitude inválida para o usuário.");
-        }
-        else if(item.getLongitude() == null || (item.getLongitude() < -180.0d && item.getLongitude() > 180.0d))
-        {
-            throw new ConflictException("Longitude inválida para o usuário.");
+        else if(item.getLocalizacao() == null) {
+            throw new ConflictException("Localização inválida para o device.");
         }
 
         IncidentesBean u = incidentesDao.getById(item.getId());

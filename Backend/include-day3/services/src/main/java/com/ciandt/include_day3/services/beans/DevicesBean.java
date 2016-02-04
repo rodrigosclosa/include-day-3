@@ -1,5 +1,6 @@
 package com.ciandt.include_day3.services.beans;
 
+import com.google.appengine.api.datastore.GeoPt;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -13,18 +14,16 @@ public class DevicesBean {
     private Long id;
     private String descricao;
     private String url;
-    private Double latitude;
-    private Double longitude;
+    private GeoPt localizacao;
 
     public DevicesBean() {
     }
 
-    public DevicesBean(Long id, String descricao, String url, Double latitude, Double longitude) {
+    public DevicesBean(Long id, String descricao, String url, GeoPt localizacao) {
         this.id = id;
         this.descricao = descricao;
         this.url = url;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.localizacao = localizacao;
     }
 
     public Long getId() {
@@ -51,19 +50,11 @@ public class DevicesBean {
         this.url = url;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public GeoPt getLocalizacao() {
+        return localizacao;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocalizacao(GeoPt localizacao) {
+        this.localizacao = localizacao;
     }
 }
