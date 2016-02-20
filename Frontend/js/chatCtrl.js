@@ -1,11 +1,12 @@
 var Chat = function () {
 
-    var template = "<div class='media'><div class='media-body'>[[MENSAGEM]]<br /><small class='text-muted'>[[NOME]]</small><hr /></div></div>";
+    var template = "<div class='media'><div class='media-body'>[[MENSAGEM]]<small class='text-muted'> - [[NOME]]</small></div></div>";
+    
     var chatHub;
     
-    var receberMensagem = function () {
-
-         
+    var receberMensagem = function (nome, mensagem) {
+        
+        $('#chat-container').append(template.replace('[[NOME]]', nome).replace('[[MENSAGEM]]', mensagem));
 
     };
     
@@ -22,8 +23,7 @@ var Chat = function () {
         
     };
 
-    return {
-        //Função principal que inicializa o módulo
+    return {        
         inicializar: function () {
             
             chatHub = $.connection.chatHub;
@@ -34,15 +34,13 @@ var Chat = function () {
                 .done(function(){ adicionarEventos(); console.log('Estamos conectados! Seu ID=' + $.connection.hub.id); })                    
                 .fail(function(){ console.log('Não foi possível conectar!'); });
             
-            chatHub.client.broadcastMessage = function (nome, mensagem) {
-                                
-                // Add the message to the page.
-                $('#chat-container').append(template.replace('[[NOME]]', nome).replace('[[MENSAGEM]]', mensagem));
-                
-            };
+            chatHub.client.broadcastMessage = receberMensagem;
+            
+            $('#chat-container').append("Bem vindo! <br /> Informe seu nome e envie mensagens à vontade.");
                                   
         }, 
         enviarMensagem,
         receberMensagem        
     };
+    
 }();
