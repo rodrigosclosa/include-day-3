@@ -28,7 +28,7 @@ var Chat = function () {
             
             chatHub = $.connection.chatHub;
             
-            $.connection.hub.url = 'http://chat-site.azurewebsites.net/signalr';
+            $.connection.hub.url = API_CHAT_URL;
                                         
             $.connection.hub.start()
                 .done(function(){ adicionarEventos(); console.log('Estamos conectados! Seu ID=' + $.connection.hub.id); })                    

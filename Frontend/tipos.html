@@ -88,8 +88,6 @@
 
                 <div class="row">
 
-
-
                 </div>
 
                 <!-- Row start -->
@@ -98,7 +96,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading clearfix">
                                 <i class="icon-calendar"></i>
-                                <h3 class="panel-title">Cadastro de Inicidentes</h3>
+                                <h3 class="panel-title">Cadastro de Tipos de Inicidentes</h3>
                             </div>
 
                             <div class="panel-body">
@@ -106,35 +104,14 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tipo</label>
                                         <div class="col-md-10">
-                                            <input type="text" name="tipo" class="form-control" placeholder="Tipo">
+                                            <input type="text" name="tipo" id="tipo" class="form-control" placeholder="Tipo">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Endereço</label>
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="col-xs-10">
-                                                    <input type="text" class="form-control" placeholder="Logradouro">
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <input type="text" class="form-control" placeholder="Número">
-                                                </div>
-                                            </div>
+                                        <div class="col-md-10 col-sm-offset-2">
+                                            <button type='button' id="btn-cadastrar" class='btn btn-primary'><span class='glyphicon glyphicon glyphicon-add' aria-hidden='true'></span> Cadastrar</button>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Estado</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="estado" class="form-control" placeholder="Estado">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Cidade</label>
-                                        <div class="col-md-10">
-                                            <input type="text" name="cidade" class="form-control" placeholder="Cidade">
-                                        </div>
-                                    </div>
-
                                 </form>
                             </div>
                         </div>
@@ -145,49 +122,14 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th style="width: 25%">Nome</th>
-                            <th style="width: 25%">Email</th>
-                            <th style="width: 50%">Endereço</th>
+                            <th style="width: 50%">#</th>
+                            <th style="width: 50%">Nome</th>                                                        
                             <th style="white-space: nowrap;">- Ações -</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-result">
                         <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td></td>
-                            <td>
-                                <div class="btn-group btn-group-xs">
-                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>                                        
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td></td>
-                            <td>
-                                <div class="btn-group btn-group-xs">
-                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>                                        
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td></td>
-                            <td>
-                                <div class="btn-group btn-group-xs">
-                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>                                        
-                                </div>
-                            </td>
+                            <td colspan="3">--- carregando lista ---</td>                            
                         </tr>
                     </tbody>
                 </table>
@@ -220,12 +162,16 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/usuariosCtrl.js"></script>
-    <!-- Fim das Bibliotecas de Script -->
+        
+    <!-- Controllers -->
+    <script src="js/bootbox.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/tiposCtrl.js"></script>    
+    
     <!-- Scripts da página -->
     <script>
         jQuery(document).ready(function () {
-            Usuarios.inicializar();
+            Tipos.inicializar();
         });
     </script>
 
