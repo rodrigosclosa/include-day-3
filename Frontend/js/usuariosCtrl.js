@@ -20,8 +20,8 @@ var Usuarios = function () {
             numero: $('numero').val(),
             nome: $('nome').val(),
             localizacao: {
-                "latitude": -19.8145989,
-                "longitude": 44.0075468
+                latitude: -19.8145989,
+                longitude: 44.0075468
             }
         } 
 

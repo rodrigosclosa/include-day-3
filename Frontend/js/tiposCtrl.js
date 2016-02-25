@@ -1,19 +1,42 @@
 var Tipos = function () {
 
+    var limparFormulario = function(){
+        $('#id-tipo').val('');
+        $('#tipo').val('');  
+    };
+
     var limparLista = function () {
         $('.table-result').empty();
     };
 
     var editarItem = function () {
         var $this = $(this);
-        console.log($this.attr('id-objeto'));
-        // TODO
+        var $id = $this.attr('id-objeto');
+        
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",            
+            success: function (data) {                
+                $('#tipo').val(data.descricao);
+                $('#id-tipo').val(data.id);                
+            },
+            error: function (xhr) {
+                alert("Ocorreu um erro ao cadastrar item.");
+            }
+        });        
     };
 
     var cadastrarItem = function () {
 
         var item = {
             descricao: $('#tipo').val()
+        };
+        
+        if($('#id-tipo').val() != ''){
+            item.id = $('#id-tipo').val();
         };
 
         $.ajax({
@@ -24,6 +47,7 @@ var Tipos = function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",            
             success: function (data) {
+                limparFormulario();                
                 carregarLista();
             },
             error: function (xhr) {
