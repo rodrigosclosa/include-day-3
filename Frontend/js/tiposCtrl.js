@@ -21,10 +21,10 @@ var Tipos = function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);
+                $('#id-tipo').val(data.id);                
             },
             error: function (xhr) {
-                alert("Ocorreu um erro ao cadastrar item.");
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
     };
@@ -49,9 +49,10 @@ var Tipos = function () {
             success: function (data) {
                 limparFormulario();
                 carregarLista();
+                bootbox.alert('Cadastrado/Editado com sucesso!');
             },
-            error: function (xhr) {
-                alert("Ocorreu um erro ao cadastrar item.");
+            error: function (xhr) {                
+                bootbox.alert(xhr.responseJSON.error.message);                
             }
         });
 
@@ -72,9 +73,10 @@ var Tipos = function () {
                     processData: true,
                     success: function (data) {
                         carregarLista();
+                        bootbox.alert('Removido com sucesso!');
                     },
                     error: function (xhr) {
-                        alert("Ocorreu um erro ao remover item.");
+                        bootbox.alert(xhr.responseJSON.error.message);                        
                     }
                 });
             }
