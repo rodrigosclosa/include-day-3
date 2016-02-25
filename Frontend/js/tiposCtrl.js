@@ -1,8 +1,8 @@
 var Tipos = function () {
 
-    var limparFormulario = function(){
+    var limparFormulario = function () {
         $('#id-tipo').val('');
-        $('#tipo').val('');  
+        $('#tipo').val('');
     };
 
     var limparLista = function () {
@@ -12,21 +12,21 @@ var Tipos = function () {
     var editarItem = function () {
         var $this = $(this);
         var $id = $this.attr('id-objeto');
-        
+
         $.ajax({
             async: true,
             type: "GET",
             url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
             dataType: "json",
-            contentType: "application/json; charset=utf-8",            
-            success: function (data) {                
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
                 $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);                
+                $('#id-tipo').val(data.id);
             },
             error: function (xhr) {
                 alert("Ocorreu um erro ao cadastrar item.");
             }
-        });        
+        });
     };
 
     var cadastrarItem = function () {
@@ -34,8 +34,8 @@ var Tipos = function () {
         var item = {
             descricao: $('#tipo').val()
         };
-        
-        if($('#id-tipo').val() != ''){
+
+        if ($('#id-tipo').val() != '') {
             item.id = $('#id-tipo').val();
         };
 
@@ -45,9 +45,9 @@ var Tipos = function () {
             data: JSON.stringify(item),
             url: API_URL + '/tipoincidente/v1/tipoincidente?alt=json',
             dataType: "json",
-            contentType: "application/json; charset=utf-8",            
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
-                limparFormulario();                
+                limparFormulario();
                 carregarLista();
             },
             error: function (xhr) {
@@ -63,26 +63,27 @@ var Tipos = function () {
 
         bootbox.confirm("Tem certeza que deseja remover?", function (result) {
 
-            $.ajax({
-                async: true,
-                type: "DELETE",
-                url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
-                dataType: "JSON",
-                processData: true,
-                success: function (data) {
-                    carregarLista();
-                },
-                error: function (xhr) {
-                    alert("Ocorreu um erro ao remover item.");
-                }
-            });
-
+            if (result) {
+                $.ajax({
+                    async: true,
+                    type: "DELETE",
+                    url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
+                    dataType: "JSON",
+                    processData: true,
+                    success: function (data) {
+                        carregarLista();
+                    },
+                    error: function (xhr) {
+                        alert("Ocorreu um erro ao remover item.");
+                    }
+                });
+            }
         });
 
     };
 
     var adicionarEventos = function () {
-        
+
         $('.table-result .btn-default').each(function () {
             var $this = $(this);
             $this.click(editarItem);
@@ -92,7 +93,7 @@ var Tipos = function () {
             var $this = $(this);
             $this.click(removerItem);
         });
-        
+
     };
 
     var carregarLista = function () {
