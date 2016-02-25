@@ -12,26 +12,23 @@ var Usuarios = function () {
 
     var cadastrarItem = function () {
 
-        var item = {
+        var usuario = {
             cidade: $('cidade').val(),
             email: $('email').val(),
             estado: $('estado').val(),            
             logradouro: $('logradouro').val(),
             numero: $('numero').val(),
-            nome: $('nome').val(),
-            localizacao: {
-                latitude: -19.8145989,
-                longitude: 44.0075468
-            }
-        } 
+            nome: $('nome').val()
+        };
+        
+        console.log(usuario);
 
         $.ajax({
             async: true,
             type: "POST",
-            data: JSON.stringify(item),
-            url: API_URL + '/usuario/v1/usuarios?alt=json',
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",            
+            data: JSON.stringify(usuario),
+            url: API_URL + '/usuario/v1/usuarios',
+            dataType: "JSON",
             success: function (data) {
                 carregarLista();
             },
