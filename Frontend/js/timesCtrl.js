@@ -108,7 +108,7 @@ var Times = function () {
             processData: true,
             success: function (data) {
 
-                if (data != null) {
+                if(data != null && data.items.length > 0){
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');

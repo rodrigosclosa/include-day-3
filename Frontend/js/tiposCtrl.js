@@ -17,7 +17,7 @@ var Tipos = function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);                
+                $('#id-tipo').val(data.id);
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -47,8 +47,8 @@ var Tipos = function () {
                 carregarLista();
                 bootbox.alert('Cadastrado/Editado com sucesso!');
             },
-            error: function (xhr) {                
-                bootbox.alert(xhr.responseJSON.error.message);                
+            error: function (xhr) {
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
 
@@ -72,7 +72,7 @@ var Tipos = function () {
                         bootbox.alert('Removido com sucesso!');
                     },
                     error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);                        
+                        bootbox.alert(xhr.responseJSON.error.message);
                     }
                 });
             }
@@ -106,24 +106,28 @@ var Tipos = function () {
 
                 Utils.limparLista();
 
-                $.each(data.items, function (i, item) {
-                    var tr = $('<tr/>');
-                    tr.append("<td>" + item.id + "</td>");
-                    tr.append("<td>" + item.descricao + "</td>");
+                if (data != null && data.items.length > 0) {
 
-                    var template = "<td>";
-                    template += "<div class='btn-group btn-group-xs'>";
-                    template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-default'><span class='glyphicon glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
-                    template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-danger'><span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span></button>";
-                    template += "</div>";
-                    template += "</td>";
+                    $.each(data.items, function (i, item) {
+                        var tr = $('<tr/>');
+                        tr.append("<td>" + item.id + "</td>");
+                        tr.append("<td>" + item.descricao + "</td>");
 
-                    tr.append(template);
+                        var template = "<td>";
+                        template += "<div class='btn-group btn-group-xs'>";
+                        template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-default'><span class='glyphicon glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
+                        template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-danger'><span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span></button>";
+                        template += "</div>";
+                        template += "</td>";
 
-                    $('.table-result').append(tr);
-                });
+                        tr.append(template);
 
-                adicionarEventos();
+                        $('.table-result').append(tr);
+                    });
+
+                    adicionarEventos();
+
+                }
 
             },
             error: function (xhr) {
