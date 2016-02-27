@@ -61,7 +61,7 @@
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+         <div class="row">
 
             <div class="col-md-3">
                 <p class="lead">Monitor de Incidentes</p>
@@ -82,19 +82,37 @@
                         <div class="panel panel-default">
                             <div class="panel-heading clearfix">
                                 <i class="icon-calendar"></i>
-                                <h3 class="panel-title">Cadastro de Tipos de Inicidentes</h3>
+                                <h3 class="panel-title">Cadastro de Times</h3>
                             </div>
 
                             <div class="panel-body">
                                 <form class="form-horizontal row-border" action="#">
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tipo</label>
+                                        <label class="col-md-2 control-label">Nome</label>
                                         <div class="col-md-10">
-                                            <input type="text" name="tipo" id="tipo" class="form-control" placeholder="Tipo" />
-                                            <input type="hidden" name="id-tipo" id="id-tipo" />
+                                            <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label">Integrantes</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="integrantes" type="text" name="integrantes" placeholder="Integrantes">
+                                        </div>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Localização</label>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-xs-10">
+                                                    <input type="text" id="cidade" class="form-control" placeholder="Cidade">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <input type="text" id="estado" class="form-control" placeholder="Estado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
                                         <div class="col-md-10 col-sm-offset-2">
                                             <button type='button' id="btn-cadastrar" class='btn btn-primary'><span class='glyphicon glyphicon glyphicon-add' aria-hidden='true'></span> Cadastrar</button>
                                         </div>
@@ -109,14 +127,16 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="width: 50%">#</th>
-                            <th style="width: 50%">Nome</th>                                                        
+                            <th>#</th>
+                            <th style="width: 25%">Nome</th>
+                            <th style="width: 50%">Integrantes</th>
+                            <th style="width: 25%">Cidade</th>
                             <th style="white-space: nowrap;">- Ações -</th>
                         </tr>
                     </thead>
                     <tbody class="table-result">
                         <tr>
-                            <td colspan="3">--- carregando lista ---</td>                            
+                            <td colspan="5">--- carregando lista ---</td>
                         </tr>
                     </tbody>
                 </table>
@@ -149,17 +169,18 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-        
+    <script src="js/bootbox.min.js"></script>
+    
     <!-- Controllers -->
     <script src="js/bootbox.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/tiposCtrl.js"></script>    
+    <script src="js/timesCtrl.js"></script>
     
     <!-- Scripts da página -->
     <script>
         jQuery(document).ready(function () {
-            Tipos.inicializar();
+            Times.inicializar();
             Utils.inicializar();
         });
     </script>
