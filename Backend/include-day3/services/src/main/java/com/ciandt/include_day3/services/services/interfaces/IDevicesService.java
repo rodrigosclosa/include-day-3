@@ -16,8 +16,8 @@ public interface IDevicesService {
     List<DevicesBean> list();
     List<DevicesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException;
     DevicesBean getById(Long id) throws NotFoundException;
-    void insert(DevicesBean veiculo) throws ConflictException, NotFoundException;
-    void update(DevicesBean veiculo) throws ConflictException, NotFoundException;
+    void insert(DevicesBean device) throws ConflictException, NotFoundException;
+    void update(DevicesBean device) throws ConflictException, NotFoundException;
     void remove(long id) throws ConflictException, NotFoundException;
 
 }
