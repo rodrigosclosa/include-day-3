@@ -1,5 +1,20 @@
 var Incidentes = function () {
 
+    var obterCoordenadas = function () {
+                
+        var address = "Rua Paulo Gonçalves, 50, Santa Mônica, Belo Horizonte, Minas Gerais";
+        
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+        
+    }
+
     var limparFormulario = function () {
         $('#id-tipo').val('');
         $('#tipo').val('');
@@ -142,7 +157,7 @@ var Incidentes = function () {
         inicializar: function () {
             $('#btn-cadastrar').click(cadastrarItem);
             carregarLista();
-            Utils.limparLista();
+            obterCoordenadas();
         }
     };
 } ();

@@ -19,3 +19,4 @@ var MENU = {
         url: "chat.html",
     },
 ]};
+var API_KEY = "AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4";
