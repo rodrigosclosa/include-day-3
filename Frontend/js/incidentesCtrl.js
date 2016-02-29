@@ -1,18 +1,51 @@
 var Incidentes = function () {
+    
+    var carregarTipos = function() {
+      
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: API_URL + '/tipoincidente/v1/tipoincidente/',
+            dataType: "JSON",
+            processData: true,
+            success: function (data) {
 
-    var obterCoordenadas = function () {
-                
-        var address = "Rua Paulo Gonçalves, 50, Santa Mônica, Belo Horizonte, Minas Gerais";
-        
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
+                if (data != null && data.items.length > 0) {
+
+                    $.each(data.items, function (i, item) {
+                        var option = $('<option/>');
+                        option.attr("value", item.id);
+                        option.html(item.descricao);
+                        $('#tipo').append(option);
+                    });
+
+                }
+
+            },
+            error: function (xhr) {
+                alert("Ocorreu um erro ao carregar a lista.");
+            }
         });
         
+    };
+
+    var obterCoordenadas = function () {
+
+        var address = "Rua Paulo Gonçalves, 50, Santa Mônica, Belo Horizonte, Minas Gerais";
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
+                return {
+                    lat: results[0].geometry.location.lat(),
+                    long: results[0].geometry.location.lng()
+                }
+            } else {
+                return null;                
+            }
+        });
+
     }
 
     var limparFormulario = function () {
@@ -32,7 +65,7 @@ var Incidentes = function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);                
+                $('#id-tipo').val(data.id);
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -62,8 +95,8 @@ var Incidentes = function () {
                 carregarLista();
                 bootbox.alert('Cadastrado/Editado com sucesso!');
             },
-            error: function (xhr) {                
-                bootbox.alert(xhr.responseJSON.error.message);                
+            error: function (xhr) {
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
 
@@ -87,7 +120,7 @@ var Incidentes = function () {
                         bootbox.alert('Removido com sucesso!');
                     },
                     error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);                        
+                        bootbox.alert(xhr.responseJSON.error.message);
                     }
                 });
             }
@@ -120,8 +153,8 @@ var Incidentes = function () {
             success: function (data) {
 
                 Utils.limparLista();
-                
-                if(data != null && data.items.length > 0){
+
+                if (data != null && data.items.length > 0) {
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
@@ -141,7 +174,7 @@ var Incidentes = function () {
                     });
 
                     adicionarEventos();
-                    
+
                 }
 
             },
@@ -158,6 +191,7 @@ var Incidentes = function () {
             $('#btn-cadastrar').click(cadastrarItem);
             carregarLista();
             obterCoordenadas();
+            carregarTipos();
         }
     };
 } ();
