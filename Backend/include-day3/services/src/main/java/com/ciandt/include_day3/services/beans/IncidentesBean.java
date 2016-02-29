@@ -19,10 +19,10 @@ public class IncidentesBean {
     @Id
     private Long id;
     @Index
-    private Long idUsuario;
+    private Long idTime;
     @Ignore
     @Nullable
-    private TimesBean usuario;
+    private TimesBean Time;
     @Index
     private Long idTipoIncidente;
     @Ignore
@@ -41,9 +41,9 @@ public class IncidentesBean {
     public IncidentesBean() {
     }
 
-    public IncidentesBean(Long id, Long idUsuario, Long idTipoIncidente, int gravidade, String logradouro, int numero, String cidade, String estado, GeoPt localizacao, Date data) {
+    public IncidentesBean(Long id, Long idTime, Long idTipoIncidente, int gravidade, String logradouro, int numero, String cidade, String estado, GeoPt localizacao, Date data) {
         this.id = id;
-        this.idUsuario = idUsuario;
+        this.idTime = idTime;
         this.idTipoIncidente = idTipoIncidente;
         this.gravidade = gravidade;
         this.logradouro = logradouro;
@@ -62,21 +62,21 @@ public class IncidentesBean {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getIdTime() {
+        return idTime;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdTime(Long idTime) {
+        this.idTime = idTime;
     }
 
     @Nullable
-    public TimesBean getUsuario() {
-        return usuario;
+    public TimesBean getTime() {
+        return Time;
     }
 
-    public void setUsuario(@Nullable TimesBean usuario) {
-        this.usuario = usuario;
+    public void setTime(@Nullable TimesBean Time) {
+        this.Time = Time;
     }
 
     public Long getIdTipoIncidente() {

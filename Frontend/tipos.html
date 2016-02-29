@@ -49,19 +49,8 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="usuarios.html">Usuários</a>
-                    </li>
-                    <li>
-                        <a href="incidentes.html">Incidentes</a>
-                    </li>
-                    <li>
-                        <a href="tipos.html">Tipos de Incidentes</a>
-                    </li>
-                    <li>
-                        <a href="chat.html">Chat</a>
-                    </li>
+                <ul class="nav navbar-nav" id="menu-topo">
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -76,11 +65,8 @@
 
             <div class="col-md-3">
                 <p class="lead">Monitor de Incidentes</p>
-                <div class="list-group">
-                    <a href="usuarios.html" class="list-group-item">Usuários</a>
-                    <a href="incidentes.html" class="list-group-item">Incidentes</a>
-                    <a href="tipos.html" class="list-group-item">Tipos de Incidentes</a>
-                    <a href="chat.html" class="list-group-item">Chat</a>
+                <div class="list-group" id="menu-lateral">
+                    
                 </div>
             </div>
 
@@ -167,12 +153,14 @@
     <!-- Controllers -->
     <script src="js/bootbox.min.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/tiposCtrl.js"></script>    
     
     <!-- Scripts da página -->
     <script>
         jQuery(document).ready(function () {
             Tipos.inicializar();
+            Utils.inicializar();
         });
     </script>
 

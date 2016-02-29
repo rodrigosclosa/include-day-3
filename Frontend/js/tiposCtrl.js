@@ -5,10 +5,6 @@ var Tipos = function () {
         $('#tipo').val('');
     };
 
-    var limparLista = function () {
-        $('.table-result').empty();
-    };
-
     var editarItem = function () {
         var $this = $(this);
         var $id = $this.attr('id-objeto');
@@ -24,7 +20,7 @@ var Tipos = function () {
                 $('#id-tipo').val(data.id);
             },
             error: function (xhr) {
-                alert("Ocorreu um erro ao cadastrar item.");
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
     };
@@ -49,9 +45,10 @@ var Tipos = function () {
             success: function (data) {
                 limparFormulario();
                 carregarLista();
+                bootbox.alert('Cadastrado/Editado com sucesso!');
             },
             error: function (xhr) {
-                alert("Ocorreu um erro ao cadastrar item.");
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
 
@@ -72,9 +69,10 @@ var Tipos = function () {
                     processData: true,
                     success: function (data) {
                         carregarLista();
+                        bootbox.alert('Removido com sucesso!');
                     },
                     error: function (xhr) {
-                        alert("Ocorreu um erro ao remover item.");
+                        bootbox.alert(xhr.responseJSON.error.message);
                     }
                 });
             }
@@ -106,26 +104,30 @@ var Tipos = function () {
             processData: true,
             success: function (data) {
 
-                limparLista();
+                Utils.limparLista();
 
-                $.each(data.items, function (i, item) {
-                    var tr = $('<tr/>');
-                    tr.append("<td>" + item.id + "</td>");
-                    tr.append("<td>" + item.descricao + "</td>");
+                if (data != null && data.items.length > 0) {
 
-                    var template = "<td>";
-                    template += "<div class='btn-group btn-group-xs'>";
-                    template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-default'><span class='glyphicon glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
-                    template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-danger'><span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span></button>";
-                    template += "</div>";
-                    template += "</td>";
+                    $.each(data.items, function (i, item) {
+                        var tr = $('<tr/>');
+                        tr.append("<td>" + item.id + "</td>");
+                        tr.append("<td>" + item.descricao + "</td>");
 
-                    tr.append(template);
+                        var template = "<td>";
+                        template += "<div class='btn-group btn-group-xs'>";
+                        template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-default'><span class='glyphicon glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
+                        template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-danger'><span class='glyphicon glyphicon glyphicon-remove' aria-hidden='true'></span></button>";
+                        template += "</div>";
+                        template += "</td>";
 
-                    $('.table-result').append(tr);
-                });
+                        tr.append(template);
 
-                adicionarEventos();
+                        $('.table-result').append(tr);
+                    });
+
+                    adicionarEventos();
+
+                }
 
             },
             error: function (xhr) {
@@ -140,7 +142,7 @@ var Tipos = function () {
         inicializar: function () {
             $('#btn-cadastrar').click(cadastrarItem);
             carregarLista();
-            limparLista();
+            Utils.limparLista();
         }
     };
 } ();

@@ -1,55 +1,11 @@
-var Incidentes = function () {
-    
-    var carregarTipos = function() {
-      
-        $.ajax({
-            async: true,
-            type: "GET",
-            url: API_URL + '/tipoincidente/v1/tipoincidente/',
-            dataType: "JSON",
-            processData: true,
-            success: function (data) {
+var Times = function () {
 
-                if (data != null && data.items.length > 0) {
-
-                    $.each(data.items, function (i, item) {
-                        var option = $('<option/>');
-                        option.attr("value", item.id);
-                        option.html(item.descricao);
-                        $('#tipo').append(option);
-                    });
-
-                }
-
-            },
-            error: function (xhr) {
-                alert("Ocorreu um erro ao carregar a lista.");
-            }
-        });
-        
+    var limparLista = function () {
+        $('.table-result').empty();
     };
 
-    var obterCoordenadas = function () {
-
-        var address = "Rua Paulo Gonçalves, 50, Santa Mônica, Belo Horizonte, Minas Gerais";
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
-                return {
-                    lat: results[0].geometry.location.lat(),
-                    long: results[0].geometry.location.lng()
-                }
-            } else {
-                return null;                
-            }
-        });
-
-    }
-
     var limparFormulario = function () {
-        $('#id-tipo').val('');
+        $('#id-time').val('');
         $('#tipo').val('');
     };
 
@@ -60,12 +16,12 @@ var Incidentes = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/incidente/v1/incidente/' + $id,
+            url: API_URL + '/times/v1/times/' + $id,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);
+                $('#id-time').val(data.id);
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -79,15 +35,15 @@ var Incidentes = function () {
             descricao: $('#tipo').val()
         };
 
-        if ($('#id-tipo').val() != '') {
-            item.id = $('#id-tipo').val();
+        if ($('#id-time').val() != '') {
+            item.id = $('#id-time').val();
         };
 
         $.ajax({
             async: true,
             type: "POST",
             data: JSON.stringify(item),
-            url: API_URL + '/incidente/v1/incidente?alt=json',
+            url: API_URL + '/times/v1/times?alt=json',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -104,7 +60,7 @@ var Incidentes = function () {
 
     var removerItem = function () {
         var $this = $(this);
-        var $id = $this.attr('id-objeto');
+        var $id = $this.attr('id-time');
 
         bootbox.confirm("Tem certeza que deseja remover?", function (result) {
 
@@ -112,7 +68,7 @@ var Incidentes = function () {
                 $.ajax({
                     async: true,
                     type: "DELETE",
-                    url: API_URL + '/incidente/v1/incidente/' + $id,
+                    url: API_URL + '/times/v1/times/' + $id,
                     dataType: "JSON",
                     processData: true,
                     success: function (data) {
@@ -147,19 +103,19 @@ var Incidentes = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/incidente/v1/incidente/',
+            url: API_URL + '/times/v1/times/',
             dataType: "JSON",
             processData: true,
             success: function (data) {
 
-                Utils.limparLista();
-
-                if (data != null && data.items.length > 0) {
+                if(data != null && data.items.length > 0){
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
                         tr.append("<td>" + item.id + "</td>");
-                        tr.append("<td>" + item.descricao + "</td>");
+                        tr.append("<td>" + item.nome + "</td>");
+                        tr.append("<td>" + item.integrantes + "</td>");
+                        tr.append("<td>" + item.cidade + "</td>");
 
                         var template = "<td>";
                         template += "<div class='btn-group btn-group-xs'>";
@@ -172,11 +128,9 @@ var Incidentes = function () {
 
                         $('.table-result').append(tr);
                     });
-
                     adicionarEventos();
-
+                    
                 }
-
             },
             error: function (xhr) {
                 alert("Ocorreu um erro ao carregar a lista.");
@@ -188,10 +142,11 @@ var Incidentes = function () {
     return {
         //Função principal que inicializa o módulo
         inicializar: function () {
+
             $('#btn-cadastrar').click(cadastrarItem);
+
             carregarLista();
-            obterCoordenadas();
-            carregarTipos();
+
         }
     };
 } ();
