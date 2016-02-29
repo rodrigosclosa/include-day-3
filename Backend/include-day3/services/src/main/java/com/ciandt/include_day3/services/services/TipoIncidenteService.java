@@ -2,9 +2,7 @@ package com.ciandt.include_day3.services.services;
 
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
 import com.ciandt.include_day3.services.dao.TipoIncidenteDao;
-import com.ciandt.include_day3.services.dao.UsuarioDao;
 import com.ciandt.include_day3.services.services.interfaces.ITipoIncidenteService;
-import com.ciandt.include_day3.services.services.interfaces.IUsuarioService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 

@@ -1,9 +1,7 @@
 package com.ciandt.include_day3.services.endpoints;
 
 import com.ciandt.include_day3.services.beans.DevicesBean;
-import com.ciandt.include_day3.services.beans.UsuariosBean;
 import com.ciandt.include_day3.services.services.DevicesService;
-import com.ciandt.include_day3.services.services.UsuarioService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -36,8 +34,8 @@ public class DevicesEndpoint {
     }
 
     @ApiMethod(name = "getDevices", path = "devices", httpMethod = "GET")
-    public List<DevicesBean> getDevices(@Nullable @Named("latitude") Float latitude, @Nullable @Named("longitude") Float longitude) throws NotFoundException {
-        if(latitude == null && longitude == null)
+    public List<DevicesBean> getDevices(@Nullable @Named("latitude") float latitude, @Nullable @Named("longitude") float longitude) throws NotFoundException {
+        if(latitude == 0.0f && longitude == 0.0f)
             return devicesService.list();
         else
             return devicesService.list(latitude, longitude, null);

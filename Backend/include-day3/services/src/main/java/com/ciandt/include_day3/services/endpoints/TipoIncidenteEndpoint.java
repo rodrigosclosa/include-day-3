@@ -1,9 +1,7 @@
 package com.ciandt.include_day3.services.endpoints;
 
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
-import com.ciandt.include_day3.services.beans.UsuariosBean;
 import com.ciandt.include_day3.services.services.TipoIncidenteService;
-import com.ciandt.include_day3.services.services.UsuarioService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;

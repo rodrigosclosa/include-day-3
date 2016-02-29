@@ -5,7 +5,10 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.ciandt.include_day3.services.endpoints.UsuarioEndpoint, com.ciandt.include_day3.services.endpoints.DevicesEndpoint, com.ciandt.include_day3.services.endpoints.TipoIncidenteEndpoint, com.ciandt.include_day3.services.endpoints.IncidentesEndpoint</param-value>
+            <param-value>com.ciandt.include_day3.services.endpoints.TimesEndpoint,
+                com.ciandt.include_day3.services.endpoints.DevicesEndpoint,
+                com.ciandt.include_day3.services.endpoints.TipoIncidenteEndpoint,
+                com.ciandt.include_day3.services.endpoints.IncidentesEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

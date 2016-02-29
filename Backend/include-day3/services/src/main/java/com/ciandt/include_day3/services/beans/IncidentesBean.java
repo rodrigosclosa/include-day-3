@@ -22,7 +22,7 @@ public class IncidentesBean {
     private Long idUsuario;
     @Ignore
     @Nullable
-    private UsuariosBean usuario;
+    private TimesBean usuario;
     @Index
     private Long idTipoIncidente;
     @Ignore
@@ -71,11 +71,11 @@ public class IncidentesBean {
     }
 
     @Nullable
-    public UsuariosBean getUsuario() {
+    public TimesBean getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(@Nullable UsuariosBean usuario) {
+    public void setUsuario(@Nullable TimesBean usuario) {
         this.usuario = usuario;
     }
 

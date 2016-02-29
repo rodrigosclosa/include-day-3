@@ -2,13 +2,12 @@ package com.ciandt.include_day3.services.services;
 
 import com.ciandt.include_day3.services.beans.IncidentesBean;
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
-import com.ciandt.include_day3.services.beans.UsuariosBean;
+import com.ciandt.include_day3.services.beans.TimesBean;
 import com.ciandt.include_day3.services.config.Params;
 import com.ciandt.include_day3.services.dao.IncidentesDao;
 import com.ciandt.include_day3.services.dao.TipoIncidenteDao;
-import com.ciandt.include_day3.services.dao.UsuarioDao;
+import com.ciandt.include_day3.services.dao.TimesDao;
 import com.ciandt.include_day3.services.services.interfaces.IIncidentesService;
-import com.ciandt.include_day3.services.services.interfaces.ITipoIncidenteService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.GeoPt;
@@ -24,12 +23,12 @@ import javax.annotation.Nullable;
 public class IncidentesService implements IIncidentesService {
 
     private IncidentesDao incidentesDao;
-    private UsuarioDao usuarioDao;
+    private TimesDao timesDao;
     private TipoIncidenteDao tipoIncidenteDao;
 
     public IncidentesService() {
         incidentesDao = new IncidentesDao();
-        usuarioDao = new UsuarioDao();
+        timesDao = new TimesDao();
         tipoIncidenteDao = new TipoIncidenteDao();
     }
 
@@ -38,7 +37,7 @@ public class IncidentesService implements IIncidentesService {
         List<IncidentesBean> lista = incidentesDao.listAll();
 
         for (IncidentesBean in : lista) {
-            UsuariosBean u = usuarioDao.getById(in.getIdUsuario());
+            TimesBean u = timesDao.getById(in.getIdUsuario());
             in.setUsuario(u);
 
             TipoIncidenteBean tp = tipoIncidenteDao.getById(in.getIdTipoIncidente());
@@ -61,7 +60,7 @@ public class IncidentesService implements IIncidentesService {
         }
 
         for (IncidentesBean in : list) {
-            UsuariosBean u = usuarioDao.getById(in.getIdUsuario());
+            TimesBean u = timesDao.getById(in.getIdUsuario());
             in.setUsuario(u);
 
             TipoIncidenteBean tp = tipoIncidenteDao.getById(in.getIdTipoIncidente());
@@ -79,7 +78,7 @@ public class IncidentesService implements IIncidentesService {
             throw new NotFoundException("Incidente não encontrado");
         }
 
-        UsuariosBean u = usuarioDao.getById(item.getIdUsuario());
+        TimesBean u = timesDao.getById(item.getIdUsuario());
         item.setUsuario(u);
 
         TipoIncidenteBean tp = tipoIncidenteDao.getById(item.getIdTipoIncidente());

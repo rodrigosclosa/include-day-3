@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/2DSb79LgTzZJK-VkpNagP7HGyUU\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/usvPlJRh606gwbqJTEPvqvIchfI\"",
  "discoveryVersion": "v1",
  "id": "incidentes:v1",
  "name": "incidentes",
@@ -131,7 +131,7 @@
      "$ref": "TipoIncidenteBean"
     },
     "usuario": {
-     "$ref": "UsuariosBean"
+     "$ref": "TimesBean"
     }
    }
   },
@@ -147,21 +147,8 @@
     }
    }
   },
-  "TipoIncidenteBean": {
-   "id": "TipoIncidenteBean",
-   "type": "object",
-   "properties": {
-    "descricao": {
-     "type": "string"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    }
-   }
-  },
-  "UsuariosBean": {
-   "id": "UsuariosBean",
+  "TimesBean": {
+   "id": "TimesBean",
    "type": "object",
    "properties": {
     "cidade": {
@@ -180,15 +167,21 @@
     "localizacao": {
      "$ref": "GeoPt"
     },
-    "logradouro": {
-     "type": "string"
-    },
     "nome": {
      "type": "string"
+    }
+   }
+  },
+  "TipoIncidenteBean": {
+   "id": "TipoIncidenteBean",
+   "type": "object",
+   "properties": {
+    "descricao": {
+     "type": "string"
     },
-    "numero": {
-     "type": "integer",
-     "format": "int32"
+    "id": {
+     "type": "string",
+     "format": "int64"
     }
    }
   }
