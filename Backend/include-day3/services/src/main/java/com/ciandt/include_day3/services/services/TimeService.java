@@ -70,7 +70,7 @@ public class TimeService implements ITimeService {
         {
             throw new ConflictException("Base CI&T do Time não informado.");
         }
-      
+
         TimesBean u = TimeDao.getByProperty("nome", item.getNome());
 
         if(u != null)
@@ -83,7 +83,7 @@ public class TimeService implements ITimeService {
 
     @Override
     public void update(TimesBean item) throws ConflictException, NotFoundException {
- if(item == null)
+        if(item == null)
         {
             throw new ConflictException("Time não informado.");
         }
@@ -106,7 +106,7 @@ public class TimeService implements ITimeService {
             throw new NotFoundException("Time não encontrado");
         }
 
-        TimesBean u = TimeDao.getByProperty("nome", item.getNome());
+        u = TimeDao.getByProperty("nome", item.getNome());
 
         if(u != null && !u.getId().equals(item.getId()))
         {

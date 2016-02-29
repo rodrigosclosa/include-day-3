@@ -17,7 +17,7 @@ import javax.inject.Named;
  * Created by rodrigosclosa on 29/12/15.
  */
 @Api(
-    name = "Time",
+    name = "times",
     version = "v1",
     namespace = @ApiNamespace(
             ownerDomain = "services.include_day3.ciandt.com",
@@ -33,7 +33,7 @@ public class TimeEndpoint {
         TimeService = new TimeService();
     }
 
-    @ApiMethod(name = "getTimes", path = "Times", httpMethod = "GET")
+    @ApiMethod(name = "getTimes", path = "times", httpMethod = "GET")
     public List<TimesBean> getTimes(@Nullable @Named("nome") String nome) throws NotFoundException {
         if(nome == null || nome.isEmpty())
             return TimeService.list();
@@ -41,22 +41,22 @@ public class TimeEndpoint {
             return TimeService.list(nome);
     }
 
-    @ApiMethod(name = "getTime", path = "Times/{id}", httpMethod = ApiMethod.HttpMethod.GET)
+    @ApiMethod(name = "getTime", path = "times/{id}", httpMethod = ApiMethod.HttpMethod.GET)
     public TimesBean getTime(@Named("id") Long id) throws NotFoundException {
         return TimeService.getById(id);
     }
 
-    @ApiMethod(name = "insertTime", path = "Times", httpMethod = ApiMethod.HttpMethod.POST)
+    @ApiMethod(name = "insertTime", path = "times", httpMethod = ApiMethod.HttpMethod.POST)
     public void insertTime(TimesBean Time) throws ConflictException, NotFoundException {
         TimeService.insert(Time);
     }
 
-    @ApiMethod(name = "updateTime", path = "Times", httpMethod = ApiMethod.HttpMethod.PUT)
+    @ApiMethod(name = "updateTime", path = "times", httpMethod = ApiMethod.HttpMethod.PUT)
     public void updateTime(TimesBean veiculo) throws NotFoundException, ConflictException {
         TimeService.update(veiculo);
     }
 
-    @ApiMethod(name = "removeTime", path = "Times/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
+    @ApiMethod(name = "removeTime", path = "times/{id}", httpMethod = ApiMethod.HttpMethod.DELETE)
     public void removeTime(@Named("id") Long id) throws NotFoundException, ConflictException {
         TimeService.remove(id);
     }

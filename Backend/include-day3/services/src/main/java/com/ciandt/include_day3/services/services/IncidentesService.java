@@ -5,8 +5,8 @@ import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
 import com.ciandt.include_day3.services.beans.TimesBean;
 import com.ciandt.include_day3.services.config.Params;
 import com.ciandt.include_day3.services.dao.IncidentesDao;
+import com.ciandt.include_day3.services.dao.TimeDao;
 import com.ciandt.include_day3.services.dao.TipoIncidenteDao;
-import com.ciandt.include_day3.services.dao.TimesDao;
 import com.ciandt.include_day3.services.services.interfaces.IIncidentesService;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
@@ -23,12 +23,12 @@ import javax.annotation.Nullable;
 public class IncidentesService implements IIncidentesService {
 
     private IncidentesDao incidentesDao;
-    private TimesDao timesDao;
+    private TimeDao timesDao;
     private TipoIncidenteDao tipoIncidenteDao;
 
     public IncidentesService() {
         incidentesDao = new IncidentesDao();
-        timesDao = new TimesDao();
+        timesDao = new TimeDao();
         tipoIncidenteDao = new TipoIncidenteDao();
     }
 
@@ -37,10 +37,10 @@ public class IncidentesService implements IIncidentesService {
         List<IncidentesBean> lista = incidentesDao.listAll();
 
         for (IncidentesBean in : lista) {
-            TimesBean u = timesDao.getById(in.getIdUsuario());
-            in.setUsuario(u);
+            TimesBean u = timesDao.getByKey(in.getIdTime());
+            in.setTime(u);
 
-            TipoIncidenteBean tp = tipoIncidenteDao.getById(in.getIdTipoIncidente());
+            TipoIncidenteBean tp = tipoIncidenteDao.getByKey(in.getIdTipoIncidente());
             in.setTipoIncidente(tp);
         }
 
@@ -60,10 +60,10 @@ public class IncidentesService implements IIncidentesService {
         }
 
         for (IncidentesBean in : list) {
-            TimesBean u = timesDao.getById(in.getIdUsuario());
-            in.setUsuario(u);
+            TimesBean u = timesDao.getByKey(in.getIdTime());
+            in.setTime(u);
 
-            TipoIncidenteBean tp = tipoIncidenteDao.getById(in.getIdTipoIncidente());
+            TipoIncidenteBean tp = tipoIncidenteDao.getByKey(in.getIdTipoIncidente());
             in.setTipoIncidente(tp);
         }
 
@@ -78,10 +78,10 @@ public class IncidentesService implements IIncidentesService {
             throw new NotFoundException("Incidente não encontrado");
         }
 
-        TimesBean u = timesDao.getById(item.getIdUsuario());
-        item.setUsuario(u);
+        TimesBean u = timesDao.getByKey(item.getIdTime());
+        item.setTime(u);
 
-        TipoIncidenteBean tp = tipoIncidenteDao.getById(item.getIdTipoIncidente());
+        TipoIncidenteBean tp = tipoIncidenteDao.getByKey(item.getIdTipoIncidente());
         item.setTipoIncidente(tp);
 
         return item;
@@ -101,7 +101,7 @@ public class IncidentesService implements IIncidentesService {
         {
             throw new ConflictException("Data do incidente não informada.");
         }
-        else if(item.getIdUsuario() == null)
+        else if(item.getIdTime() == null)
         {
             throw new ConflictException("Usuário reportador do incidente não informado.");
         }
@@ -142,7 +142,7 @@ public class IncidentesService implements IIncidentesService {
         {
             throw new ConflictException("Data do incidente não informada.");
         }
-        else if(item.getIdUsuario() == null)
+        else if(item.getIdTime() == null)
         {
             throw new ConflictException("Usuário reportador do incidente não informado.");
         }
@@ -166,7 +166,7 @@ public class IncidentesService implements IIncidentesService {
             throw new ConflictException("Localização inválida para o device.");
         }
 
-        IncidentesBean u = incidentesDao.getById(item.getId());
+        IncidentesBean u = incidentesDao.getByKey(item.getId());
 
         if(u == null) {
             throw new NotFoundException("Incidente não encontrado");

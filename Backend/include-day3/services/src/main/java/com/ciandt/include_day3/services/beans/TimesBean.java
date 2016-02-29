@@ -15,29 +15,17 @@ public class TimesBean {
     private Long id;
     private String nome;
     @Index
-    private String email;
-    private String cidade;
-    private String estado;
-    private GeoPt localizacao;
+    private String integrantes;
+    private String baseCiandt;
 
     public TimesBean() {
     }
 
-    public TimesBean(Long id, String nome, String email, String cidade, String estado, GeoPt localizacao) {
+    public TimesBean(Long id, String nome, String integrantes, String baseCiandt) {
         this.id = id;
         this.nome = nome;
-        this.email = email;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.localizacao = localizacao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.integrantes = integrantes;
+        this.baseCiandt = baseCiandt;
     }
 
     public String getNome() {
@@ -48,35 +36,27 @@ public class TimesBean {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getIntegrantes() {
+        return integrantes;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIntegrantes(String integrantes) {
+        this.integrantes = integrantes;
     }
 
-    public String getCidade() {
-        return cidade;
+    public String getBaseCiandt() {
+        return baseCiandt;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setBaseCiandt(String baseCiandt) {
+        this.baseCiandt = baseCiandt;
     }
 
-    public String getEstado() {
-        return estado;
+    public Long getId() {
+        return id;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public GeoPt getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(GeoPt localizacao) {
-        this.localizacao = localizacao;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
