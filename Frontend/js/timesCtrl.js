@@ -6,7 +6,9 @@ var Times = function () {
 
     var limparFormulario = function () {
         $('#id-time').val('');
-        $('#tipo').val('');
+        $('#nome').val('');
+        $('#integrantes').val('');
+        $('#baseCiandt').val('');
     };
 
     var editarItem = function () {
@@ -20,7 +22,9 @@ var Times = function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                $('#tipo').val(data.descricao);
+                $('#nome').val(data.nome);
+                $('#integrantes').val(data.integrantes);
+                $('#baseCiandt').val(data.baseCiandt);
                 $('#id-time').val(data.id);
             },
             error: function (xhr) {
@@ -32,7 +36,9 @@ var Times = function () {
     var cadastrarItem = function () {
 
         var item = {
-            descricao: $('#tipo').val()
+            nome: $('#nome').val(),
+            integrantes: $('#integrantes').val(),
+            baseCiandt: $('#baseCiandt').val()
         };
 
         if ($('#id-time').val() != '') {
@@ -60,7 +66,7 @@ var Times = function () {
 
     var removerItem = function () {
         var $this = $(this);
-        var $id = $this.attr('id-time');
+        var $id = $this.attr('id-objeto');
 
         bootbox.confirm("Tem certeza que deseja remover?", function (result) {
 
@@ -108,6 +114,8 @@ var Times = function () {
             processData: true,
             success: function (data) {
 
+                Utils.limparLista();
+
                 if(data != null && data.items.length > 0){
 
                     $.each(data.items, function (i, item) {
@@ -115,7 +123,7 @@ var Times = function () {
                         tr.append("<td>" + item.id + "</td>");
                         tr.append("<td>" + item.nome + "</td>");
                         tr.append("<td>" + item.integrantes + "</td>");
-                        tr.append("<td>" + item.cidade + "</td>");
+                        tr.append("<td>" + item.baseCiandt + "</td>");
 
                         var template = "<td>";
                         template += "<div class='btn-group btn-group-xs'>";
@@ -128,6 +136,7 @@ var Times = function () {
 
                         $('.table-result').append(tr);
                     });
+                    
                     adicionarEventos();
                     
                 }
