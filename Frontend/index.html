@@ -49,19 +49,8 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="times.html">Times</a>
-                    </li>
-                    <li>
-                        <a href="tipos.html">Tipos de incidentes</a>
-                    </li>
-                    <li>
-                        <a href="incidentes.html">Incidentes</a>
-                    </li>
-                    <li>
-                        <a href="chat.html">Chat</a>
-                    </li>
+                <ul class="nav navbar-nav" id="menu-topo">
+                   
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -76,11 +65,8 @@
 
             <div class="col-md-3">
                 <p class="lead">Monitor de Incidentes</p>
-                <div class="list-group">
-                    <a href="times.html" class="list-group-item">Times</a>
-                    <a href="tipos.html" class="list-group-item">Tipos de incidentes</a>
-                    <a href="incidentes.html" class="list-group-item">Incidentes</a>
-                    <a href="chat.html" class="list-group-item">Chat</a>
+                <div class="list-group" id="menu-lateral">
+                   
                 </div>
             </div>
 
@@ -223,6 +209,17 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+     <!-- Controllers -->    
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    
+    <!-- Scripts da página -->
+    <script>
+        jQuery(document).ready(function () {
+            Utils.inicializar();
+        });
+    </script>
 
 </body>
 

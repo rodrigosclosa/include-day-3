@@ -3,6 +3,10 @@ var API_CHAT_URL = "http://chat-site.azurewebsites.net/signalr";
 var MENU = {
     links:[
     {
+        nome: "Chat",
+        url: "chat.html",
+    },
+    {
         nome: "Times",
         url: "times.html",
     },
@@ -14,9 +18,6 @@ var MENU = {
         nome: "Incidentes",
         url: "incidentes.html",
     },
-    {
-        nome: "Chat",
-        url: "chat.html",
-    },
+ 
 ]};
 var API_KEY = "AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4";
