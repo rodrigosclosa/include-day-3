@@ -151,11 +151,8 @@ var Times = function () {
     return {
         //Função principal que inicializa o módulo
         inicializar: function () {
-
             $('#btn-cadastrar').click(cadastrarItem);
-
             carregarLista();
-
         }
     };
 } ();

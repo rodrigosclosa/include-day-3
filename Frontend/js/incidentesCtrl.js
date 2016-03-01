@@ -10,15 +10,54 @@ var Incidentes = function () {
             processData: true,
             success: function (data) {
 
-                if (data != null && data.items.length > 0) {
+                var option = $('<option/>');
+                        option.attr("value", "");
+                        option.html("-- Selecione uma opção --");
+                        $('#tipo').append(option);
 
+                if (data != null && data.items.length > 0) {
+                        
                     $.each(data.items, function (i, item) {
                         var option = $('<option/>');
                         option.attr("value", item.id);
                         option.html(item.descricao);
                         $('#tipo').append(option);
                     });
+                    
+                }
 
+            },
+            error: function (xhr) {
+                alert("Ocorreu um erro ao carregar a lista.");
+            }
+        });
+        
+    };
+    
+    var carregarTimes = function() {
+      
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: API_URL + '/times/v1/times/',
+            dataType: "JSON",
+            processData: true,
+            success: function (data) {
+
+                var option = $('<option/>');
+                        option.attr("value", "");
+                        option.html("-- Selecione uma opção --");
+                        $('#time').append(option);
+
+                if (data != null && data.items.length > 0) {
+                        
+                    $.each(data.items, function (i, item) {
+                        var option = $('<option/>');
+                        option.attr("value", item.id);
+                        option.html(item.nome);
+                        $('#time').append(option);
+                    });
+                    
                 }
 
             },
@@ -49,8 +88,14 @@ var Incidentes = function () {
     }
 
     var limparFormulario = function () {
-        $('#id-tipo').val('');
+        $('#id-incidente').val('');
         $('#tipo').val('');
+        $('#gravidade').val('');
+        $('#logradouro').val('');
+        $('#numero').val('');
+        $('#cidade').val('');
+        $('#estado').val('');
+        $('#time').val('');
     };
 
     var editarItem = function () {
@@ -60,12 +105,18 @@ var Incidentes = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/incidente/v1/incidente/' + $id,
+            url: API_URL + '/incidentes/v1/incidentes/' + $id,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);
+                $('#id-incidente').val(data.id);
+                $('#tipo').val(data.idTipoIncidente);
+                $('#gravidade').val(data.gravidade);
+                $('#logradouro').val(data.logradouro);
+                $('#numero').val(data.numero);
+                $('#cidade').val(data.cidade);
+                $('#estado').val(data.estado);
+                $('#time').val(data.idTime);
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -76,18 +127,29 @@ var Incidentes = function () {
     var cadastrarItem = function () {
 
         var item = {
-            descricao: $('#tipo').val()
+            idTipoIncidente: $('#tipo').val(),
+            gravidade: $('#gravidade').val(),
+            logradouro: $('#logradouro').val(),
+            numero: $('#numero').val(),
+            cidade: $('#cidade').val(),
+            estado: $('#estado').val(),
+            idTime: $('#time').val(),
+            data: new Date().toJSON().slice(0,10),
+            localizacao: {
+                latitude: 1,
+                longitude: 2    
+            } 
         };
 
-        if ($('#id-tipo').val() != '') {
-            item.id = $('#id-tipo').val();
+        if ($('#id-incidente').val() != '') {
+            item.id = $('#id-incidente').val();
         };
 
         $.ajax({
             async: true,
             type: "POST",
             data: JSON.stringify(item),
-            url: API_URL + '/incidente/v1/incidente?alt=json',
+            url: API_URL + '/incidentes/v1/incidentes?alt=json',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -112,7 +174,7 @@ var Incidentes = function () {
                 $.ajax({
                     async: true,
                     type: "DELETE",
-                    url: API_URL + '/incidente/v1/incidente/' + $id,
+                    url: API_URL + '/incidentes/v1/incidentes/' + $id,
                     dataType: "JSON",
                     processData: true,
                     success: function (data) {
@@ -147,7 +209,7 @@ var Incidentes = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/incidente/v1/incidente/',
+            url: API_URL + '/incidentes/v1/incidentes/',
             dataType: "JSON",
             processData: true,
             success: function (data) {
@@ -159,7 +221,10 @@ var Incidentes = function () {
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
                         tr.append("<td>" + item.id + "</td>");
-                        tr.append("<td>" + item.descricao + "</td>");
+                        tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
+                        tr.append("<td>" + item.gravidade + "</td>");
+                        tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
+                        tr.append("<td>" + item.time.nome + "</td>");
 
                         var template = "<td>";
                         template += "<div class='btn-group btn-group-xs'>";
@@ -192,6 +257,7 @@ var Incidentes = function () {
             carregarLista();
             obterCoordenadas();
             carregarTipos();
+            carregarTimes();
         }
     };
 } ();
