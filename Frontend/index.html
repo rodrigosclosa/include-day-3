@@ -72,113 +72,8 @@
 
             <div class="col-md-9">
 
-                <div class="row">
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=-19.8150593,-43.9746823&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4" alt="">
-                            <div class="caption">                                
-                                <h4><a href="#">First</a>
-                                </h4>
-                                <p>See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item See more snippets like this online store item.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">Terremoto</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=-19.8150593,-43.9746823&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4" alt="">
-                            <div class="caption">                                
-                                <h4><a href="#">Second</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">Enchente</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=-19.8150593,-43.9746823&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4" alt="">
-                            <div class="caption">                                
-                                <h4><a href="#">Third</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">Terremoto</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=-19.8150593,-43.9746823&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4" alt="">
-                            <div class="caption">                                
-                                <h4><a href="#">Fourth</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">Deslisamento</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=-19.8150593,-43.9746823&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4" alt="">
-                            <div class="caption">                                
-                                <h4><a href="#">Fifth</a>
-                                </h4>
-                                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">Tempestade</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                   
+                <div class="row" id="incidentes-result">
+                                       
                 </div>
 
             </div>
@@ -213,11 +108,13 @@
      <!-- Controllers -->    
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/indexCtrl.js"></script>
     
     <!-- Scripts da página -->
     <script>
         jQuery(document).ready(function () {
             Utils.inicializar();
+            Index.inicializar();
         });
     </script>
 
