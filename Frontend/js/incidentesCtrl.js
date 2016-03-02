@@ -70,12 +70,17 @@ var Incidentes = function () {
 
     var obterCoordenadas = function () {
 
-        var address = "Rua Paulo Gonçalves, 50, Santa Mônica, Belo Horizonte, Minas Gerais";
+        var logradouro = $('#logradouro').val();
+        var numero = $('#numero').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado').val();
+
+        var address = logradouro + " , " + numero + " , " +  cidade + " , " + estado;
 
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
+                // console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
                 return {
                     lat: results[0].geometry.location.lat(),
                     long: results[0].geometry.location.lng()
@@ -136,8 +141,8 @@ var Incidentes = function () {
             idTime: $('#time').val(),
             data: new Date().toJSON().slice(0,10),
             localizacao: {
-                latitude: 1,
-                longitude: 2    
+                latitude: 0,
+                longitude: 0
             } 
         };
 
@@ -255,7 +260,6 @@ var Incidentes = function () {
         inicializar: function () {
             $('#btn-cadastrar').click(cadastrarItem);
             carregarLista();
-            obterCoordenadas();
             carregarTipos();
             carregarTimes();
         }
