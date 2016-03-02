@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/HU-QpeCiDjh1aGEseMOcKP_f0ks\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/NZrVr1bdoMiHceD1rwgv8T0SPs8\"",
  "discoveryVersion": "v1",
  "id": "devices:v1",
  "name": "devices",
@@ -80,6 +80,9 @@
     "descricao": {
      "type": "string"
     },
+    "geohash": {
+     "type": "string"
+    },
     "id": {
      "type": "string",
      "format": "int64"
@@ -148,13 +151,11 @@
    "httpMethod": "GET",
    "parameters": {
     "latitude": {
-     "type": "number",
-     "format": "float",
+     "type": "string",
      "location": "query"
     },
     "longitude": {
-     "type": "number",
-     "format": "float",
+     "type": "string",
      "location": "query"
     }
    },
@@ -171,15 +172,13 @@
    "httpMethod": "GET",
    "parameters": {
     "latitude": {
-     "type": "number",
+     "type": "string",
      "required": true,
-     "format": "float",
      "location": "path"
     },
     "longitude": {
-     "type": "number",
+     "type": "string",
      "required": true,
-     "format": "float",
      "location": "path"
     },
     "raio": {

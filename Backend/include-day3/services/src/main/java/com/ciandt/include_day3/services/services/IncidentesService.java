@@ -1,5 +1,6 @@
 package com.ciandt.include_day3.services.services;
 
+import com.ciandt.include_day3.services.beans.DevicesBean;
 import com.ciandt.include_day3.services.beans.IncidentesBean;
 import com.ciandt.include_day3.services.beans.TipoIncidenteBean;
 import com.ciandt.include_day3.services.beans.TimesBean;
@@ -8,6 +9,7 @@ import com.ciandt.include_day3.services.dao.IncidentesDao;
 import com.ciandt.include_day3.services.dao.TimeDao;
 import com.ciandt.include_day3.services.dao.TipoIncidenteDao;
 import com.ciandt.include_day3.services.services.interfaces.IIncidentesService;
+import com.ciandt.include_day3.services.util.GeohashUtil;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.GeoPt;
@@ -48,12 +50,16 @@ public class IncidentesService implements IIncidentesService {
     }
 
     @Override
-    public List<IncidentesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException {
-        GeoPt center = new GeoPt(latitude, longitude);
-        double radius = raio == null ? Params.getInstance().getRaio() : raio;
-        Query.Filter filtro = new Query.StContainsFilter("localizacao", new Query.GeoRegion.Circle(center, radius));
+    public List<IncidentesBean> list(String latitude, String longitude, @Nullable Double raio) throws NotFoundException {
+//        GeoPt center = new GeoPt(latitude, longitude);
+//        double radius = raio == null ? Params.getInstance().getRaio() : raio;
+//        Query.Filter filtro = new Query.StContainsFilter("localizacao", new Query.GeoRegion.Circle(center, radius));
+//
+//        List<IncidentesBean> list = incidentesDao.listByFilter(filtro);
 
-        List<IncidentesBean> list = incidentesDao.listByFilter(filtro);
+        String geohash = GeohashUtil.getInstance().geohash(latitude, longitude, 5);
+
+        List<IncidentesBean> list = incidentesDao.listByStartWith("geohash", geohash);
 
         if(list == null || list.size() < 1) {
             throw new NotFoundException("Incidente não encontrado");
@@ -125,6 +131,9 @@ public class IncidentesService implements IIncidentesService {
             throw new ConflictException("Localização inválida para o device.");
         }
 
+        String geohash = GeohashUtil.getInstance().geohash(String.valueOf(item.getLocalizacao().getLatitude()), String.valueOf(item.getLocalizacao().getLongitude()), 10);
+        item.setGeohash(geohash);
+
         incidentesDao.insert(item);
     }
 
@@ -171,6 +180,9 @@ public class IncidentesService implements IIncidentesService {
         if(u == null) {
             throw new NotFoundException("Incidente não encontrado");
         }
+
+        String geohash = GeohashUtil.getInstance().geohash(String.valueOf(item.getLocalizacao().getLatitude()), String.valueOf(item.getLocalizacao().getLongitude()), 10);
+        item.setGeohash(geohash);
 
         incidentesDao.update(item);
     }

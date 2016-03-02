@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/Z5T9KvRI2p5l0xwgLNQQPL4nTXo\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/rfJXyNEreOXwG8JiMxUTwCTz9qY\"",
  "discoveryVersion": "v1",
  "id": "incidentes:v1",
  "name": "incidentes",
@@ -98,7 +98,13 @@
      "type": "string",
      "format": "date-time"
     },
+    "descricao": {
+     "type": "string"
+    },
     "estado": {
+     "type": "string"
+    },
+    "geohash": {
      "type": "string"
     },
     "gravidade": {
@@ -228,13 +234,11 @@
    "httpMethod": "GET",
    "parameters": {
     "latitude": {
-     "type": "number",
-     "format": "float",
+     "type": "string",
      "location": "query"
     },
     "longitude": {
-     "type": "number",
-     "format": "float",
+     "type": "string",
      "location": "query"
     }
    },
@@ -251,15 +255,13 @@
    "httpMethod": "GET",
    "parameters": {
     "latitude": {
-     "type": "number",
+     "type": "string",
      "required": true,
-     "format": "float",
      "location": "path"
     },
     "longitude": {
-     "type": "number",
+     "type": "string",
      "required": true,
-     "format": "float",
      "location": "path"
     },
     "raio": {

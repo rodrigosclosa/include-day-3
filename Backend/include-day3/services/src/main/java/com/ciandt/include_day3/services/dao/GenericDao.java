@@ -77,4 +77,8 @@ public class GenericDao<T> implements IGenericDao<T> {
         return ofy().load().type(clazz).filter(filtro).list();
     }
 
+    public List<T> listByStartWith(String field, String search) {
+        Query query = ofy().load().type(clazz).filter(field + " >=", search);
+        return query.filter(field + " <", search+"\ufffd").list();
+    }
 }
