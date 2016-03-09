@@ -5,7 +5,7 @@ import com.ciandt.include_day3.services.services.DevicesService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.Nullable;
+import com.google.api.server.spi.config.AuthLevel;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 
@@ -19,6 +19,7 @@ import javax.inject.Named;
 @Api(
     name = "devices",
     version = "v1",
+        authLevel = AuthLevel.NONE,
     namespace = @ApiNamespace(
             ownerDomain = "services.include_day3.ciandt.com",
             ownerName = "services.include_day3.ciandt.com",
@@ -34,15 +35,16 @@ public class DevicesEndpoint {
     }
 
     @ApiMethod(name = "getDevices", path = "devices", httpMethod = "GET")
-    public List<DevicesBean> getDevices(@Nullable @Named("latitude") float latitude, @Nullable @Named("longitude") float longitude) throws NotFoundException {
-        if(latitude == 0.0f && longitude == 0.0f)
+    public List<DevicesBean> getDevices(@javax.annotation.Nullable @Named("latitude") String latitude, @javax.annotation.Nullable @Named("longitude") String longitude) throws NotFoundException {
+
+        if((latitude == null || latitude.isEmpty()) && (longitude == null || longitude.isEmpty()))
             return devicesService.list();
         else
             return devicesService.list(latitude, longitude, null);
     }
 
     @ApiMethod(name = "getDevicesByLocationAndRadius", path = "devices/{latitude}/{longitude}/{raio}", httpMethod = "GET")
-    public List<DevicesBean> getDevicesByLocationAndRadius(@Named("latitude") float latitude, @Named("longitude") float longitude, @Named("raio") Double raio) throws NotFoundException {
+    public List<DevicesBean> getDevicesByLocationAndRadius(@Named("latitude") String latitude, @Named("longitude") String longitude, @Named("raio") Double raio) throws NotFoundException {
         return devicesService.list(latitude, longitude, raio);
     }
 

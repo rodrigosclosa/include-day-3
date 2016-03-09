@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public interface IIncidentesService {
 
     List<IncidentesBean> list();
-    List<IncidentesBean> list(float latitude, float longitude, @Nullable Double raio) throws NotFoundException;
+    List<IncidentesBean> list(String latitude, String longitude, @Nullable Double raio) throws NotFoundException;
     IncidentesBean getById(Long id) throws NotFoundException;
     void insert(IncidentesBean incidente) throws ConflictException, NotFoundException;
     void update(IncidentesBean incidente) throws ConflictException, NotFoundException;

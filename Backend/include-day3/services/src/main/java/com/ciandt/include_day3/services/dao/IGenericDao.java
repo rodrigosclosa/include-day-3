@@ -21,4 +21,5 @@ public interface IGenericDao<T> {
     T getByKey(Long id);
     List<T> listByProperty(String propName, Object propValue);
     List<T> listByFilter(Query.Filter filtro);
+    List<T> listByStartWith(String field, String search);
 }

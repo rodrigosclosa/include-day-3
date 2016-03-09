@@ -3,6 +3,8 @@ package com.ciandt.include_day3.services.beans;
 import com.google.appengine.api.datastore.GeoPt;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * Created by rodrigosclosa on 02/02/16.
@@ -14,16 +16,19 @@ public class DevicesBean {
     private Long id;
     private String descricao;
     private String url;
+
+    @Index
+    private String geohash;
     private GeoPt localizacao;
 
     public DevicesBean() {
     }
 
-    public DevicesBean(Long id, String descricao, String url, GeoPt localizacao) {
+    public DevicesBean(Long id, String descricao, String url, String geohash) {
         this.id = id;
         this.descricao = descricao;
         this.url = url;
-        this.localizacao = localizacao;
+        this.geohash = geohash;
     }
 
     public Long getId() {
@@ -48,6 +53,14 @@ public class DevicesBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getGeohash() {
+        return geohash;
+    }
+
+    public void setGeohash(String geohash) {
+        this.geohash = geohash;
     }
 
     public GeoPt getLocalizacao() {

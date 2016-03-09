@@ -34,7 +34,7 @@ public class IncidentesEndpoint {
     }
 
     @ApiMethod(name = "getIncidentes", path = "incidentes", httpMethod = ApiMethod.HttpMethod.GET)
-    public List<IncidentesBean> getIncidentes(@Nullable @Named("latitude") Float latitude, @Nullable @Named("longitude") Float longitude) throws NotFoundException {
+    public List<IncidentesBean> getIncidentes(@Nullable @Named("latitude") String latitude, @Nullable @Named("longitude") String longitude) throws NotFoundException {
         if(latitude == null || longitude == null)
             return incidentesService.list();
         else
@@ -42,7 +42,7 @@ public class IncidentesEndpoint {
     }
 
     @ApiMethod(name = "getIncidentesByLocationAndRadius", path = "usuarios/{latitude}/{longitude}/{raio}", httpMethod = "GET")
-    public List<IncidentesBean> getIncidentesByLocationAndRadius(@Named("latitude") float latitude, @Named("longitude") float longitude, @Named("raio") Double raio) throws NotFoundException {
+    public List<IncidentesBean> getIncidentesByLocationAndRadius(@Named("latitude") String latitude, @Named("longitude") String longitude, @Named("raio") Double raio) throws NotFoundException {
         return incidentesService.list(latitude, longitude, raio);
     }
 

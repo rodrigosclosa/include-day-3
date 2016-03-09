@@ -34,14 +34,17 @@ public class IncidentesBean {
     private int numero;
     private String cidade;
     private String estado;
+
     @Index
+    private String geohash;
     private GeoPt localizacao;
     private Date data;
+    private String descricao;
 
     public IncidentesBean() {
     }
 
-    public IncidentesBean(Long id, Long idTime, Long idTipoIncidente, int gravidade, String logradouro, int numero, String cidade, String estado, GeoPt localizacao, Date data) {
+    public IncidentesBean(Long id, Long idTime, Long idTipoIncidente, int gravidade, String logradouro, int numero, String cidade, String estado, GeoPt localizacao, Date data, String descricao) {
         this.id = id;
         this.idTime = idTime;
         this.idTipoIncidente = idTipoIncidente;
@@ -52,6 +55,7 @@ public class IncidentesBean {
         this.estado = estado;
         this.localizacao = localizacao;
         this.data = data;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -150,5 +154,21 @@ public class IncidentesBean {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getGeohash() {
+        return geohash;
+    }
+
+    public void setGeohash(String geohash) {
+        this.geohash = geohash;
     }
 }
