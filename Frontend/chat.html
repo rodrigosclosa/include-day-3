@@ -62,11 +62,10 @@
     <div class="container">
 
         <div class="row">
-
+            
             <div class="col-md-3">
                 <p class="lead">Monitor de Incidentes</p>
                 <div class="list-group" id="menu-lateral">
-                    
                 </div>
             </div>
 
@@ -83,27 +82,34 @@
 
                                 <div class="media-body" id="chat-container">
 
-
-
                                 </div>
                             </li>
                         </ul>
                     </div>
                     
                     <div class="panel-footer">
-                        <input type="text" class="form-control" placeholder="Digite seu nome" id="text-nome">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Digite sua mensagem" id="text-mensagem">
-                            <span class="input-group-btn">
-                                <button class="btn btn-info" id="btn-enviar" type="button">Enviar</button>
-                            </span>
-                        </div>
+                        <form class="form-horizontal row-border" action="#">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nome</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="Digite seu nome" id="text-nome">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Mensagem</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="Digite sua mensagem" id="text-mensagem">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10 col-sm-offset-2">
+                                    <button class="btn btn-info" id="btn-enviar" type="button">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
     </div>
