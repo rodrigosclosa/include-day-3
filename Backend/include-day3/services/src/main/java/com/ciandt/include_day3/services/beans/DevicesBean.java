@@ -16,6 +16,7 @@ public class DevicesBean {
     private Long id;
     private String descricao;
     private String url;
+    private String idDevice;
 
     @Index
     private String geohash;
@@ -24,10 +25,11 @@ public class DevicesBean {
     public DevicesBean() {
     }
 
-    public DevicesBean(Long id, String descricao, String url, String geohash) {
+    public DevicesBean(Long id, String descricao, String url, String idDevice, String geohash) {
         this.id = id;
         this.descricao = descricao;
         this.url = url;
+        this.idDevice = idDevice;
         this.geohash = geohash;
     }
 
@@ -69,5 +71,13 @@ public class DevicesBean {
 
     public void setLocalizacao(GeoPt localizacao) {
         this.localizacao = localizacao;
+    }
+
+    public String getIdDevice() {
+        return idDevice;
+    }
+
+    public void setIdDevice(String idDevice) {
+        this.idDevice = idDevice;
     }
 }
