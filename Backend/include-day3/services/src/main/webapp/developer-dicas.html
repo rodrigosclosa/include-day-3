@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Include Day + CI&T</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+</head>
+<body role="document" style="padding-top: 70px;">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://www.ciandt.com/">Include Day + CI&T</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/_ah/api/explorer">API Explorer</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+    <!--
+      Output from Endpoints API call.
+    -->
+    <div class="alert alert-success" style="visibility: collapse;" id="outputAlert"></div>
+
+    <!--
+      A form that takes a text value and submits it to the Endpoint,
+      access to the Endpoint is enabled once the client is loaded below.
+    -->
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Dicas</h1>
+                <h2>Recuperar valor de um campo</h2>
+                <p>Para recuperar o valor de algum campo específico da tela via javascript(JQuery), você pode procurar pelo ID do campo, como por exemplo: $(‘#cidade’).val(); 
+                Sempre use ‘#’ antes do texto se você buscar pelo atributo ID do elemento.</p>
+                <br/>
+                <h2>Usando Ajax</h2>
+                <p>Uma chamada ajax requer uma estrutura mínima para que seja feita com sucesso:</p>
+                <h5>$.ajax ({</h5>
+                <h5>async: true,</h5>
+                <h5>type: tipo da chamada a ser realizada. ‘GET’ ou ‘POST’,</h5>
+                <h5>url: url para acesso do serviço,</h5>
+                <h5>data: dado a ser enviado,</h5>  
+                <h5>dataType: tipo do dado a ser recebido do servidor,</h5>
+                <h5>processData: processa os dados enviados em uma query string. true or false,</h5>  
+                <h5>success: function () {</h5>   
+                <h5>Após o servidor receber e processar sua chamada com sucesso, esse evento é executado. </h5>
+                <h5>Aqui deve implementado a lógica para atualização do conteúdo dos campos e mostrar mensagem de sucesso.</h5>
+                <h5>},</h5>
+                <h5>error: function () {</h5>
+                <h5>Se algum erro acontecer no lado do servidor, esse evento é chamado.</h5>
+                <h5>}</h5>
+                <h5>});</h5>
+                <p>Mais informações: http://api.jquery.com/jquery.ajax/</p>
+                <br/>
+                <h2>Usando o console.log</h2>
+                <p>Para ajudar a debugar o seu código javascript ou até mesmo saber o valor de uma variável, você pode usar o console.log(); Exemplo:</p>
+                <h5>var objetoJson = {</h5>
+                <h5>propriedade1: “valor1”,</h5>
+                <h5>propriedade2: “valor2”,</h5>
+                <h5>};</h5>
+                <h5>console.log(objetoJson);</h5>
+                <h5>Na aba de ferramentas Console do seu browser, você verá o resultado: </h5>  
+                <h5>Object { propriedade1: "valor1", propriedade2: "valor2" }</h5>  
+                <h5>Para abrir a janela de Ferramentas de Desenvolvedor, pressione a tecla F12.</h5> 
+                <br/>
+                <h2>Eventos de um elemento html</h2>
+                <p>Para executar ações quando determinado evento de um campo ocorrer, por exemplo o clique de um botão, você pode usar o seguinte código:</p>
+                <h5>$("#botao").click(function () {</h5>
+                <h5>console.log(“funcionou o clique botão”);</h5>
+                <h5>});</h5>
+                <br/>
+                <h2>Teclas de atalho</h2>
+                <p>É importante oferecer ao usuário a opção de navegação na página por teclas de atalho.
+                Utilizando o atributo accesskey dentro de um tag link por exemplo, permitirá que ao pressionar alt + tecla definida, o navegador clique no link sem a utilização do mouse.</p>
+                <p>Mais informações: http://www.kadunew.com/blog/html/html5-acessibilidade-com-o-atributo-accesskey</p>   
+                <br/>
+                <ul>
+                    <li><a href="developer-desafio1.html">Desafio 1 - Chat</a></li>
+                    <li><a href="developer-desafio2.html">Desafio 2 - Times</a></li>
+                    <li><a href="developer-desafio3.html">Desafio 3 - Tipo de Incidentes</a></li>
+                    <li><a href="developer-desafio4.html">Desafio 4 - Incidentes</a></li>
+                    <li><a href="developer-desafio5.html">Desafio 5 - Listar Incidentes</a></li>
+                    <li><a href="developer-dicas.html">Dicas</a></li>
+                    <li><a href="index.html">Página Inicial</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // A function that attaches a "Say Hello" button click handler
+    function enableClick() {
+      document.getElementById('helloButton').onclick = function() {
+        var name = document.getElementById('nameInput').value;
+        gapi.client.myApi.sayHi({'name': name}).execute(
+          function(response) {
+            var outputAlertDiv = document.getElementById('outputAlert');
+            outputAlertDiv.style.visibility = 'visible';
+
+            if (!response.error) {
+              outputAlertDiv.className = 'alert alert-success';
+              outputAlertDiv.innerHTML = '<h2>' + response.result.data + '</h2>';
+            }
+            else if (response.error) {
+              outputAlertDiv.className = 'alert alert-danger';
+              outputAlertDiv.innerHTML = '<b>Error Code: </b>' + response.error.code + ' [' + response.error.message + ']';
+            }
+          }
+        );
+        return false;
+      }
+    }
+    // This is called initially
+    function init() {
+      var apiName = 'myApi';
+      var apiVersion = 'v1';
+      var apiRoot = 'https://' + window.location.host + '/_ah/api';
+      if (window.location.hostname == 'localhost'
+          || window.location.hostname == '127.0.0.1'
+          || ((window.location.port != "") && (window.location.port > 1023))) {
+            // We're probably running against the DevAppServer
+            apiRoot = 'http://' + window.location.host + '/_ah/api';
+      }
+      var callback = function() {
+        enableClick();
+      }
+      gapi.client.load(apiName, apiVersion, callback, apiRoot);
+    }
+</script>
+<!--
+ Load the Google APIs Client Library for JavaScript
+ More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+-->
+
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+</html>
