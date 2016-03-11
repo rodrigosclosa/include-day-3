@@ -14,6 +14,8 @@ var Index = function () {
 
                     $.each(data.items, function (i, item) {
                         
+                        if (item.tipoIncidente == null) return true;
+                        
                         var template = "<div class='col-sm-4 col-lg-4 col-md-4'>";
                         template += ("<div class='thumbnail'>");
                         template += ("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + item.localizacao.latitude +","+ item.localizacao.longitude + "&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4' alt=''>")
