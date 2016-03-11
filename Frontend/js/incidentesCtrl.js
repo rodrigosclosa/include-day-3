@@ -171,6 +171,9 @@ var Incidentes = function () {
             success: function (data) {
                 limparFormulario();
                 carregarLista();
+                
+                acionarSirene(1, 0, 1);
+                
                 bootbox.alert('Cadastrado/Editado com sucesso!');
             },
             error: function (xhr) {
@@ -219,6 +222,41 @@ var Incidentes = function () {
         });
 
     };
+    
+    var acionarSirene= function (luzAmarela, luzVermelha, sirene){
+        
+        var API_SIRENE = "http://api.iot.ciandt.com/v2/data";
+        
+        var request = {
+            "content" : {
+                "sirene": sirene,
+                "led_amarelo": luzAmarela,
+                "led_vermelho": luzVermelha
+            },
+            "firmwareVersion" : 1.0
+        };
+        
+        $.ajax({
+            async: true,
+            type: "POST",
+            url: API_SIRENE,
+            headers: {
+                'id':'19:fe:34:e0:3d:9e',
+                'access_token':'rOxsxbXsj5Zm'
+            },
+            dataType: "JSON",
+            contentType: 'application/json',
+            data: JSON.stringify(request),
+            processData: true,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (xhr) {
+                bootbox.alert(xhr.responseJSON.error.message);
+            }
+        });
+        
+    }
     
     var obterNomeGravidade = function(gravidade) {
         switch (gravidade) {
