@@ -10,6 +10,9 @@ var Index = function () {
             processData: true,
             success: function (data) {
 
+                var millisecondsToWait = 7000;
+                setTimeout(function() {
+                
                 if(data != null && data.items.length > 0){
 
                     $.each(data.items, function (i, item) {
@@ -48,9 +51,10 @@ var Index = function () {
 
                         $('#incidentes-result').append(template);
                     });
-                    
-                    
                 }
+                
+                }, millisecondsToWait);
+
             },
             error: function (xhr) {
                 alert("Ocorreu um erro ao carregar a lista.");

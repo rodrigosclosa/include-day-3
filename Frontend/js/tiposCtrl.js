@@ -47,7 +47,7 @@ var Tipos = function () {
         // ser postado com o mesmo id, para atualizar os valores
         // caso contrário irá criar um novo item
         if ($('#id-tipo').val() != '') {
-            item.id = $('#id-tipo').val();
+            //item.id = $('#id-tipo').val();
         };
 
         $.ajax({
@@ -86,20 +86,20 @@ var Tipos = function () {
             // result = true se o usuário disse que SIM, confirma a ação
             // result = false se o usuário desistiu e disse que NÃO confirma a ação
             if (result) {
-                $.ajax({
-                    async: true,
-                    type: "DELETE",
-                    url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
-                    dataType: "JSON",
-                    processData: true,
-                    success: function (data) {
-                        carregarLista();
-                        bootbox.alert('Removido com sucesso!');
-                    },
-                    error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);
-                    }
-                });
+                // $.ajax({
+                //     async: true,
+                //     type: "DELETE",
+                //     url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
+                //     dataType: "JSON",
+                //     processData: true,
+                //     success: function (data) {
+                //         carregarLista();
+                //         bootbox.alert('Removido com sucesso!');
+                //     },
+                //     error: function (xhr) {
+                //         bootbox.alert(xhr.responseJSON.error.message);
+                //     }
+                // });
             }
         });
 

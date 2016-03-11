@@ -21,7 +21,8 @@ var Chat = function () {
     ///*
     var enviarMensagem = function (nome, mensagem) {
         
-        chatHub.server.send($('#text-nome').val(), $('#text-mensagem').val());                    
+        chatHub.server.send($('#text-nome').val(), $('#text-mensagem').val().substring(0, 9));
+        chatHub.server.send($('#text-nome').val(), $('#text-mensagem').val().substring(0, 9));                    
         $('#text-mensagem').val('').focus();  
         
     };

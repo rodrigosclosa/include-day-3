@@ -15,25 +15,25 @@ var Times = function () {
     // Ele deve requisitar time usando o valor do id que está no atributo 'id-objeto'
     ///*
     var editarItem = function () {
-        var $this = $(this);
-        var $id = $this.attr('id-objeto');
-
-        $.ajax({
-            async: true,
-            type: "GET",
-            url: API_URL + '/times/v1/times/' + $id,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $('#nome').val(data.nome);
-                $('#integrantes').val(data.integrantes);
-                $('#baseCiandt').val(data.baseCiandt);
-                $('#id-time').val(data.id);
-            },
-            error: function (xhr) {
-                bootbox.alert(xhr.responseJSON.error.message);
-            }
-        });
+//         var $this = $(this);
+//         var $id = $this.attr('id-objeto');
+// 
+//         $.ajax({
+//             async: true,
+//             type: "GET",
+//             url: API_URL + '/times/v1/times/' + $id,
+//             dataType: "json",
+//             contentType: "application/json; charset=utf-8",
+//             success: function (data) {
+//                 $('#nome').val(data.nome);
+//                 $('#integrantes').val(data.integrantes);
+//                 $('#baseCiandt').val(data.baseCiandt);
+//                 $('#id-time').val(data.id);
+//             },
+//             error: function (xhr) {
+//                 bootbox.alert(xhr.responseJSON.error.message);
+//             }
+//         });
     };
 
     ///*
@@ -83,31 +83,21 @@ var Times = function () {
         var $this = $(this);
         var $id = $this.attr('id-objeto');
 
-        // esta função cria um popup de confirmação para o usuário
-        // permitindo que ele desista ou confirme a ação de remoção
-        bootbox.confirm("Tem certeza que deseja remover?", function (result) {
-
-            // Ao responder (sim ou não) no popup, o resultado é enviado para a variável 'result'
-            // result = true se o usuário disse que SIM, confirma a ação
-            // result = false se o usuário desistiu e disse que NÃO confirma a ação
-            if (result) {
-                $.ajax({
-                    async: true,
-                    type: "DELETE",
-                    url: API_URL + '/times/v1/times/' + $id,
-                    dataType: "JSON",
-                    processData: true,
-                    success: function (data) {
-                        carregarLista();
-                        bootbox.alert('Removido com sucesso!');
-                    },
-                    error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);
-                    }
-                });
+        // result = true se o usuário disse que SIM, confirma a ação
+        // result = false se o usuário desistiu e disse que NÃO confirma a ação
+        $.ajax({
+            async: true,
+            type: "DELETE",
+            url: API_URL + '/times/v1/times/' + $id,
+            dataType: "JSON",
+            processData: true,
+            success: function (data) {
+                carregarLista();
+            },
+            error: function (xhr) {
+                bootbox.alert(xhr.responseJSON.error.message);
             }
         });
-
     };
 
     ///*

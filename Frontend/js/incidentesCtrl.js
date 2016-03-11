@@ -66,6 +66,8 @@ var Incidentes = function () {
                         $('#time').append(option);
                     });
                     
+                    $('#time').append(option);
+                    
                 }
 
             },
@@ -355,9 +357,9 @@ var Incidentes = function () {
                         if (item.time == null) return true;
                         
                         var tr = $('<tr/>');
+                        tr.append("<td>" + obterNomeGravidade(item.gravidade)  + "</td>");
                         tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
-                        tr.append("<td>" + obterNomeGravidade(item.gravidade) + "</td>");
-                        tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
+                        tr.append("<td>" + item.numero + ", " + item.logradouro + "</td>");
                         
                         tr.append("<td>" + item.time.nome + "</td>");
                         
