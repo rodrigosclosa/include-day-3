@@ -1,7 +1,7 @@
 var Chat = function () {
 
     /// modelo de HTML que será usado para apresentar as mensagens que forem adicionadas ao chat
-    var template = "<div class='media'><div class='media-body'>[[MENSAGEM]]<small class='text-muted'> - [[NOME]]</small></div></div>";
+    var template = "<div class='media'><div class='media-body'><small class='text-muted'> - [[NOME]]</small></div></div>";
     
     /// esta é a variável que representa a comunicação com o servidor (ainda não inicializada)
     var chatHub;
@@ -12,7 +12,7 @@ var Chat = function () {
     ///*
     var receberMensagem = function (nome, mensagem) {
         
-        $('#chat-container').append(template.replace('[[NOME]]', nome).replace('[[MENSAGEM]]', mensagem));
+        $('#chat-container').append(template.replace('[[NOME]]', nome));
 
     };
     
@@ -21,7 +21,10 @@ var Chat = function () {
     ///*
     var enviarMensagem = function (nome, mensagem) {
         
-        chatHub.server.send($('#text-nome').val(), $('#text-mensagem').val());                    
+        var nome;
+        var mensagem;
+        
+        chatHub.server.send(nome, mensagem);                    
         $('#text-mensagem').val('').focus();  
         
     };
@@ -31,7 +34,8 @@ var Chat = function () {
     ///*
     var adicionarEventos = function () {
         
-        $('#btn-enviar').click( enviarMensagem ); 
+        /// o que fazer ao clicar?
+        $('#btn-enviar').click(); 
         
     };
 
@@ -42,14 +46,15 @@ var Chat = function () {
             chatHub = $.connection.chatHub;
             
             /// define a variável URL do serviço do CHAT
-            $.connection.hub.url = API_CHAT_URL;
-                 
+            /// existe uma propriedade $.connection.hub.url que precisa ser informada, consulte configurações
+                             
             /// inicia a comunicação com o servidor                       
             $.connection.hub.start()
                 .done(       
                     /// se a comunicação for estabelecida com sucesso, ele irá adicionar os eventos à tela             
-                    function(){ 
-                        adicionarEventos(); 
+                    function(){                         
+                        /// estamos prontos para funcionar, e agora?
+                        /// podemos habilitar alguma coisa?                         
                         console.log('Estamos conectados! Seu ID=' + $.connection.hub.id); 
                     }
                 )                    
@@ -61,7 +66,7 @@ var Chat = function () {
                 );
             
             /// define a função que o servidor irá chamar ao compartilhar uma mensagem com todos os usuários
-            chatHub.client.broadcastMessage = receberMensagem;
+            /// precisa definir aqui o valor para chatHub.client.broadcastMessage
             
             $('#chat-container').append("Bem vindo! <br /> Informe seu nome e envie mensagens à vontade.");
                                   
