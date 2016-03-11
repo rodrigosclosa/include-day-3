@@ -351,15 +351,22 @@ var Incidentes = function () {
 
                     $.each(data.items, function (i, item) {
                         
-                        if (item.tipoIncidente == null) return true;
-                        if (item.time == null) return true;
-                        
                         var tr = $('<tr/>');
-                        tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
+                        if (item.tipoIncidente != null) {
+                            tr.append("<td>" + item.tipoIncidente.descricao + "</td>");    
+                        }  else {
+                            tr.append("<td></td>");
+                        }
+                        
                         tr.append("<td>" + obterNomeGravidade(item.gravidade) + "</td>");
                         tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
                         
-                        tr.append("<td>" + item.time.nome + "</td>");
+                        if (item.time != null) {
+                            tr.append("<td>" + item.time.nome + "</td>");    
+                        }  else {
+                            tr.append("<td></td>");
+                        }
+                        
                         
                         var template = "<td>";
                         template += "<div class='btn-group btn-group-xs btn-group-show-label'>";
