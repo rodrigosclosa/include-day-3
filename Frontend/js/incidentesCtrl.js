@@ -261,7 +261,7 @@ var Incidentes = function () {
     var obterNomeGravidade = function(gravidade) {
         switch (gravidade) {
             case 1 :
-                return "Pauco grave";
+                return "Pouco grave";
                 break;
             case 2 :
                 return "Grave";
