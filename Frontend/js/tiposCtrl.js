@@ -16,20 +16,7 @@ var Tipos = function () {
         var $this = $(this);
         var $id = $this.attr('id-objeto');
 
-        $.ajax({
-            async: true,
-            type: "GET",
-            url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $('#tipo').val(data.descricao);
-                $('#id-tipo').val(data.id);
-            },
-            error: function (xhr) {
-                bootbox.alert(xhr.responseJSON.error.message);
-            }
-        });
+        // executar AJAX?        
     };
 
     ///*
@@ -78,31 +65,7 @@ var Tipos = function () {
         var $this = $(this);
         var $id = $this.attr('id-objeto');
 
-        // esta função cria um popup de confirmação para o usuário
-        // permitindo que ele desista ou confirme a ação de remoção
-        bootbox.confirm("Tem certeza que deseja remover?", function (result) {
-
-            // Ao responder (sim ou não) no popup, o resultado é enviado para a variável 'result'
-            // result = true se o usuário disse que SIM, confirma a ação
-            // result = false se o usuário desistiu e disse que NÃO confirma a ação
-            if (result) {
-                $.ajax({
-                    async: true,
-                    type: "DELETE",
-                    url: API_URL + '/tipoincidente/v1/tipoincidente/' + $id,
-                    dataType: "JSON",
-                    processData: true,
-                    success: function (data) {
-                        carregarLista();
-                        bootbox.alert('Removido com sucesso!');
-                    },
-                    error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);
-                    }
-                });
-            }
-        });
-
+        //executar AJAX?
     };
 
     ///*
@@ -136,7 +99,7 @@ var Tipos = function () {
             processData: true,
             success: function (data) {
 
-                Utils.limparLista();
+                /// hummmm? preenche itens na lista atual
 
                 if (data != null && data.items.length > 0) {
 
@@ -151,12 +114,10 @@ var Tipos = function () {
                         template += "</div>";
                         template += "</td>";
 
-                        tr.append(template);
-
                         $('.table-result').append(tr);
                     });
 
-                    adicionarEventos();
+                    /// precisamos fazer algo com os links que foram criados?
 
                 }
 
