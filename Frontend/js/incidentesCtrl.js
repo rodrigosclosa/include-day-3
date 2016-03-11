@@ -1,5 +1,9 @@
 var Incidentes = function () {
     
+    ///*
+    // Esta função é usada para carregar os tipos de incidente em uma caixa de seleção (combobox)
+    // Ele deve requisitar os tipos e adicionar ao elemento $('#tipo')
+    ///*
     var carregarTipos = function() {
       
         $.ajax({
@@ -34,6 +38,10 @@ var Incidentes = function () {
         
     };
     
+    ///*
+    // Esta função é usada para carregar os times em uma caixa de seleção (combobox)
+    // Ele deve requisitar os times e adicionar ao elemento $('#time')
+    ///*
     var carregarTimes = function() {
       
         $.ajax({
@@ -68,6 +76,10 @@ var Incidentes = function () {
         
     };
 
+    ///*
+    // Esta função é usada para carregar os tipos de incidente em uma caixa de seleção (combobox)
+    // Ele deve requisitar os tipos e adicionar ao elemento $('#tipo')
+    ///*
     var obterCoordenadas = function (cb) {
 
         var logradouro = $('#logradouro').val();
@@ -94,6 +106,10 @@ var Incidentes = function () {
 
     }
 
+    ///*
+    // Esta função é usada para carregar os tipos de incidente em uma caixa de seleção (combobox)
+    // Ele deve requisitar os tipos e adicionar ao elemento $('#tipo')
+    ///*
     var limparFormulario = function () {
         $('#id-incidente').val('');
         $('#tipo').val('');
@@ -106,8 +122,16 @@ var Incidentes = function () {
         $('#descricao').val('');
     };
 
+    ///*
+    // Esta função é usada para carregar os valores do incidente nos controles da tela
+    // Ele deve requisitar um incidente usando o valor do id que está no atributo 'id-objeto'
+    ///*
     var editarItem = function () {
+        
+        // neste caso $this é o link que foi clicado
         var $this = $(this);
+        
+        // recupera o valor do id-objeto
         var $id = $this.attr('id-objeto');
 
         $.ajax({
@@ -117,6 +141,10 @@ var Incidentes = function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                
+                // quando o serviço recupera com sucesso um objeto incidente
+                // o valor da variável 'data' virá com os dados do objeto
+                // em seguida usamos os valores para aprentar nos controles da tela                
                 $('#id-incidente').val(data.id);
                 $('#tipo').val(data.idTipoIncidente);
                 $('#gravidade').val(data.gravidade);
@@ -126,6 +154,7 @@ var Incidentes = function () {
                 $('#estado').val(data.estado);
                 $('#time').val(data.idTime);
                 $('#descricao').val(data.descricao);
+                
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -133,14 +162,26 @@ var Incidentes = function () {
         });
     };
 
+    ///*
+    // Esta função é usada para salvar o incidente no banco de dados do serviço
+    // Ele deve requisitar o serviço de persistência, porém, precisamos antes encontrar as coordenadas
+    // a partir do endereço. Para isso, chamamos a função obterCoordenadas e passamos a função de callback
+    // que será chamada assim que a função obterCoordenadas retornar o resultado
+    ///*
     var cadastrarItem = function () {
 
         obterCoordenadas(persistirItem);
 
     };
     
+    ///*
+    // Esta função é usada para salvar o incidente no banco de dados do serviço
+    // Ela já recebe os valores das coordenadas que vieram da função obterCoordenadas (chamada pela cadastrarItem)
+    ///*
     var persistirItem = function (latlong) {
         
+        /// criação do objeto que deve ser persistido no serviço
+        /// esta estrutura de dados JSON recebe os valores dos controles na tela        
         var item = {
             idTipoIncidente: $('#tipo').val(),
             gravidade: $('#gravidade').val(),
@@ -183,12 +224,22 @@ var Incidentes = function () {
         
     }
 
+    ///*
+    // Esta função é usada para remover o incidente no banco de dados do serviço
+    // Ela precisa do 'id-objeto' que está no atributo do link
+    ///*
     var removerItem = function () {
+        
         var $this = $(this);
         var $id = $this.attr('id-objeto');
 
+        // esta função cria um popup de confirmação para o usuário
+        // permitindo que ele desista ou confirme a ação de remoção
         bootbox.confirm("Tem certeza que deseja remover?", function (result) {
 
+            // Ao responder (sim ou não) no popup, o resultado é enviado para a variável 'result'
+            // result = true se o usuário disse que SIM, confirma a ação
+            // result = false se o usuário desistiu e disse que NÃO confirma a ação
             if (result) {
                 $.ajax({
                     async: true,
@@ -208,7 +259,11 @@ var Incidentes = function () {
         });
 
     };
-
+    
+    ///*
+    // Esta função é usada habilitar os eventos de click na tela
+    // ela deve ser executada, assim que a tela estiver pronta para ser utilizada (geralmente no contrutor)      
+    ///*
     var adicionarEventos = function () {
 
         $('.table-result .btn-default').each(function () {
@@ -223,10 +278,14 @@ var Incidentes = function () {
 
     };
     
-    var acionarSirene= function (luzAmarela, luzVermelha, sirene){
-        
-        var API_SIRENE = "http://api.iot.ciandt.com/v2/data";
-        
+    ///*
+    // Esta função é usada para acionar a sirene
+    // Ela precisa dos parametros luzAmarela, luzVermelha, sirene e a base (id da sirene)
+    // cada um deles é representado por 1 ou 0
+    // onde 1 seguinifica que queremos acionar a função e 0 que não queremos (para cada componente, luz ou som)
+    ///*
+    var acionarSirene = function (luzAmarela, luzVermelha, sirene, base){
+                       
         var request = {
             "content" : {
                 "sirene": sirene,
@@ -239,9 +298,9 @@ var Incidentes = function () {
         $.ajax({
             async: true,
             type: "POST",
-            url: API_SIRENE,
+            url: API_SIRENE_URL,
             headers: {
-                'id':'19:fe:34:e0:3d:9e',
+                'id': base,
                 'access_token':'rOxsxbXsj5Zm'
             },
             dataType: "JSON",
@@ -258,22 +317,25 @@ var Incidentes = function () {
         
     }
     
+    ///*
+    // Esta função converte os valores da gravidade em texto
+    ///*
     var obterNomeGravidade = function(gravidade) {
         switch (gravidade) {
             case 1 :
-                return "Pouco grave";
-                break;
+                return "Pouco grave";                
             case 2 :
-                return "Grave";
-                break;
+                return "Grave";                
             case 3 :
-                return "Muito grave";
-                break;
+                return "Muito grave";                
             default:
                 break;
         }
     }
 
+    ///*
+    // Esta função é usada para carregar os incidentes na lista da página (tabela)    
+    ///*
     var carregarLista = function () {
 
         $.ajax({
@@ -311,7 +373,9 @@ var Incidentes = function () {
 
                         $('.table-result').append(tr);
                     });
-
+                    
+                    // a função de adicionar eventos precisa ser chamada após a lista ser preenchida
+                    // pois os links que foram criados precisam agora receber o comportamento de click
                     adicionarEventos();
 
                 }
