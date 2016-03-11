@@ -57,3 +57,9 @@ footer {
     background: #4b4b4d url('../images/includedaylogo.jpg') center center no-repeat;
     height: 145px;
 }
+
+a[accesskey]:after, button[accesskey]:after, input[accesskey]:after,
+label[accesskey]:after, legend[accesskey]:after, textarea[accesskey]:after {
+    margin-left: 0.3em;
+    content: "[" attr(accesskey) "]";
+    }

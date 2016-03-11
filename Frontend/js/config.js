@@ -5,18 +5,22 @@ var MENU = {
     {
         nome: "Chat",
         url: "chat.html",
+        accesskey: "1"
     },
     {
         nome: "Times",
         url: "times.html",
+        accesskey: "2"
     },
     {
         nome: "Tipos de incidentes",
         url: "tipos.html",
+        accesskey: "3"
     },
     {
         nome: "Incidentes",
         url: "incidentes.html",
+        accesskey: "4"
     },
  
 ]};
