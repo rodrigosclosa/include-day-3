@@ -5,7 +5,7 @@ var Index = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/incidentes/v1/incidentes/',
+            url: '',
             dataType: "JSON",
             processData: true,
             success: function (data) {
@@ -20,8 +20,8 @@ var Index = function () {
                         template += ("<div class='thumbnail'>");
                         template += ("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + item.localizacao.latitude +","+ item.localizacao.longitude + "&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4' alt=''>")
                         template += ("<div class='caption'>");
-                        template += ("<h4><a href='#'>" + item.tipoIncidente.descricao + "</a></h4>");
-                        template += ("<p>" + item.descricao + "</p>");
+                        template += ("<h4><a href='#'>tipo de incidente</a></h4>");
+                        template += ("<p>descricao do incidente</p>");
                         template += ("</div>");
                         template += ("<div class='ratings'>");
                         template += ("<p class='pull-right'>"+ item.cidade + " - " + item.estado + "</p>");
@@ -32,13 +32,9 @@ var Index = function () {
                             template += ("<span class='glyphicon glyphicon-star-empty'></span>");
                             template += ("<span class='glyphicon glyphicon-star-empty'></span>");
                         } else if (item.gravidade == 2){
-                            template += ("<span class='glyphicon glyphicon-star'></span>");
-                            template += ("<span class='glyphicon glyphicon-star'></span>");
-                            template += ("<span class='glyphicon glyphicon-star-empty'></span>");
+                            /// hummmm?
                         } else {
-                            template += ("<span class='glyphicon glyphicon-star'></span>");
-                            template += ("<span class='glyphicon glyphicon-star'></span>");
-                            template += ("<span class='glyphicon glyphicon-star'></span>");
+                            /// hummmm?    
                         }
                         
                         template += ("</p>");
@@ -46,7 +42,6 @@ var Index = function () {
                         template += ("</div>");
                         template += ("</div>");
 
-                        $('#incidentes-result').append(template);
                     });
                     
                     
@@ -62,7 +57,7 @@ var Index = function () {
     return {
         //Função principal que inicializa o módulo
         inicializar: function () {
-            carregarLista();
+            
         }
     };
 } ();
