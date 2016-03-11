@@ -107,8 +107,7 @@ var Incidentes = function () {
     }
 
     ///*
-    // Esta função é usada para carregar os tipos de incidente em uma caixa de seleção (combobox)
-    // Ele deve requisitar os tipos e adicionar ao elemento $('#tipo')
+    // Esta função é usada limpar a tela, voltando os controles para os valores padrão
     ///*
     var limparFormulario = function () {
         $('#id-incidente').val('');
