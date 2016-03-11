@@ -19,7 +19,7 @@ var Index = function () {
                         template += ("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + item.localizacao.latitude +","+ item.localizacao.longitude + "&zoom=16&size=320x150&key=AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4' alt=''>")
                         template += ("<div class='caption'>");
                         template += ("<h4><a href='#'>" + item.tipoIncidente.descricao + "</a></h4>");
-                        template += ("<p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>");
+                        template += ("<p>" + item.descricao + "</p>");
                         template += ("</div>");
                         template += ("<div class='ratings'>");
                         template += ("<p class='pull-right'>"+ item.cidade + " - " + item.estado + "</p>");
