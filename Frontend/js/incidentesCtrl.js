@@ -219,6 +219,22 @@ var Incidentes = function () {
         });
 
     };
+    
+    var obterNomeGravidade = function(gravidade) {
+        switch (gravidade) {
+            case 1 :
+                return "Pauco grave";
+                break;
+            case 2 :
+                return "Grave";
+                break;
+            case 3 :
+                return "Muito grave";
+                break;
+            default:
+                break;
+        }
+    }
 
     var carregarLista = function () {
 
@@ -236,9 +252,8 @@ var Incidentes = function () {
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
-                        tr.append("<td>" + item.id + "</td>");
                         tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
-                        tr.append("<td>" + item.gravidade + "</td>");
+                        tr.append("<td>" + obterNomeGravidade(item.gravidade) + "</td>");
                         tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
                         
                         if(item.time != null) {

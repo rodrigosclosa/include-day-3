@@ -110,7 +110,6 @@ var Tipos = function () {
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
-                        tr.append("<td>" + item.id + "</td>");
                         tr.append("<td>" + item.descricao + "</td>");
 
                         var template = "<td>";
