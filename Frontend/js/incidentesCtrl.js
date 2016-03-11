@@ -44,35 +44,7 @@ var Incidentes = function () {
     ///*
     var carregarTimes = function() {
       
-        $.ajax({
-            async: true,
-            type: "GET",
-            url: API_URL + '/times/v1/times/',
-            dataType: "JSON",
-            processData: true,
-            success: function (data) {
-
-                var option = $('<option/>');
-                        option.attr("value", "");
-                        option.html("-- Selecione uma opção --");
-                        $('#time').append(option);
-
-                if (data != null && data.items.length > 0) {
-                        
-                    $.each(data.items, function (i, item) {
-                        var option = $('<option/>');
-                        option.attr("value", item.id);
-                        option.html(item.nome);
-                        $('#time').append(option);
-                    });
-                    
-                }
-
-            },
-            error: function (xhr) {
-                alert("Ocorreu um erro ao carregar a lista.");
-            }
-        });
+       /// uai?
         
     };
 
@@ -111,14 +83,7 @@ var Incidentes = function () {
     ///*
     var limparFormulario = function () {
         $('#id-incidente').val('');
-        $('#tipo').val('');
-        $('#gravidade').val('');
-        $('#logradouro').val('');
-        $('#numero').val('');
-        $('#cidade').val('');
-        $('#estado').val('');
-        $('#time').val('');
-        $('#descricao').val('');
+        //limpar algo mais?
     };
 
     ///*
@@ -182,17 +147,17 @@ var Incidentes = function () {
         /// criação do objeto que deve ser persistido no serviço
         /// esta estrutura de dados JSON recebe os valores dos controles na tela        
         var item = {
-            idTipoIncidente: $('#tipo').val(),
-            gravidade: $('#gravidade').val(),
-            logradouro: $('#logradouro').val(),
-            numero: $('#numero').val(),
-            cidade: $('#cidade').val(),
-            estado: $('#estado').val(),
-            idTime: $('#time').val(),
-            descricao: $('#descricao').val(),
+            idTipoIncidente:'',
+            gravidade: '',
+            logradouro: '',
+            numero: '',
+            cidade: '', 
+            estado: '',
+            idTime: '',
+            descricao: '',
             data: new Date().toJSON().slice(0,10),
             localizacao: {
-                latitude: latlong.lat.toString(),
+                latitude: '0', // uai?!
                 longitude: latlong.long.toString()
             } 
         };
@@ -240,21 +205,11 @@ var Incidentes = function () {
             // result = true se o usuário disse que SIM, confirma a ação
             // result = false se o usuário desistiu e disse que NÃO confirma a ação
             if (result) {
-                $.ajax({
-                    async: true,
-                    type: "DELETE",
-                    url: API_URL + '/incidentes/v1/incidentes/' + $id,
-                    dataType: "JSON",
-                    processData: true,
-                    success: function (data) {
-                        carregarLista();
-                        bootbox.alert('Removido com sucesso!');
-                    },
-                    error: function (xhr) {
-                        bootbox.alert(xhr.responseJSON.error.message);
-                    }
-                });
+            
+                /// ajax deleção
+                
             }
+            
         });
 
     };
@@ -356,9 +311,8 @@ var Incidentes = function () {
                         
                         var tr = $('<tr/>');
                         tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
-                        tr.append("<td>" + obterNomeGravidade(item.gravidade) + "</td>");
-                        tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
-                        
+                        tr.append("<td>" + item.gravidade + "</td>");
+                        tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");                        
                         tr.append("<td>" + item.time.nome + "</td>");
                         
                         var template = "<td>";
@@ -370,7 +324,8 @@ var Incidentes = function () {
 
                         tr.append(template);
 
-                        $('.table-result').append(tr);
+                        /// linha pronta? e agora? cade a tabela?
+
                     });
                     
                     // a função de adicionar eventos precisa ser chamada após a lista ser preenchida
@@ -393,7 +348,6 @@ var Incidentes = function () {
             $('#btn-cadastrar').click(cadastrarItem);
             carregarLista();
             carregarTipos();
-            carregarTimes();
         }
     };
 } ();
