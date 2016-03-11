@@ -120,7 +120,6 @@ var Times = function () {
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
-                        tr.append("<td>" + item.id + "</td>");
                         tr.append("<td>" + item.nome + "</td>");
                         tr.append("<td>" + item.integrantes + "</td>");
                         tr.append("<td>" + item.baseCiandt + "</td>");
