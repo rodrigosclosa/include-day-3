@@ -68,7 +68,7 @@ var Incidentes = function () {
         
     };
 
-    var obterCoordenadas = function () {
+    var obterCoordenadas = function (cb) {
 
         var logradouro = $('#logradouro').val();
         var numero = $('#numero').val();
@@ -81,12 +81,14 @@ var Incidentes = function () {
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 // console.log(results[0].geometry.location.lat() + " : " + results[0].geometry.location.lng());
-                return {
+                cb(
+                    {
                     lat: results[0].geometry.location.lat(),
                     long: results[0].geometry.location.lng()
-                }
+                    }
+                );                
             } else {
-                return null;                
+                cb(null);                
             }
         });
 
@@ -101,6 +103,7 @@ var Incidentes = function () {
         $('#cidade').val('');
         $('#estado').val('');
         $('#time').val('');
+        $('#descricao').val('');
     };
 
     var editarItem = function () {
@@ -122,6 +125,7 @@ var Incidentes = function () {
                 $('#cidade').val(data.cidade);
                 $('#estado').val(data.estado);
                 $('#time').val(data.idTime);
+                $('#descricao').val(data.descricao);
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -131,6 +135,12 @@ var Incidentes = function () {
 
     var cadastrarItem = function () {
 
+        obterCoordenadas(persistirItem);
+
+    };
+    
+    var persistirItem = function (latlong) {
+        
         var item = {
             idTipoIncidente: $('#tipo').val(),
             gravidade: $('#gravidade').val(),
@@ -139,13 +149,14 @@ var Incidentes = function () {
             cidade: $('#cidade').val(),
             estado: $('#estado').val(),
             idTime: $('#time').val(),
+            descricao: $('#descricao').val(),
             data: new Date().toJSON().slice(0,10),
             localizacao: {
-                latitude: 0,
-                longitude: 0
+                latitude: latlong.lat.toString(),
+                longitude: latlong.long.toString()
             } 
         };
-
+        
         if ($('#id-incidente').val() != '') {
             item.id = $('#id-incidente').val();
         };
@@ -166,8 +177,8 @@ var Incidentes = function () {
                 bootbox.alert(xhr.responseJSON.error.message);
             }
         });
-
-    };
+        
+    }
 
     var removerItem = function () {
         var $this = $(this);
@@ -229,8 +240,13 @@ var Incidentes = function () {
                         tr.append("<td>" + item.tipoIncidente.descricao + "</td>");
                         tr.append("<td>" + item.gravidade + "</td>");
                         tr.append("<td>" + item.logradouro + ", " + item.numero + "</td>");
-                        tr.append("<td>" + item.time.nome + "</td>");
-
+                        
+                        if(item.time != null) {
+                            tr.append("<td>" + item.time.nome + "</td>");
+                        } else {
+                            tr.append("<td></td>");
+                        }
+                        
                         var template = "<td>";
                         template += "<div class='btn-group btn-group-xs'>";
                         template += "<button type='button' id-objeto='" + item.id + "' class='btn btn-default'><span class='glyphicon glyphicon glyphicon-pencil' aria-hidden='true'></span></button>";
