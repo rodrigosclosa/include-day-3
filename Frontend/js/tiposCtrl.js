@@ -10,7 +10,7 @@ var Tipos = function () {
 
     ///*
     // Esta função é usada para carregar os valores do tipo de incidente nos controles da tela
-    // Ele deve requisitar um incidente usando o valor do id que está no atributo 'id-objeto'
+    // Ele deve requisitar um tipo de incidente usando o valor do id que está no atributo 'id-objeto'
     ///*
     var editarItem = function () {
         var $this = $(this);
