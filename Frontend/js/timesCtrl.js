@@ -5,9 +5,7 @@ var Times = function () {
     ///*
     var limparFormulario = function () {
         $('#id-time').val('');
-        $('#nome').val('');
-        $('#integrantes').val('');
-        $('#baseCiandt').val('');
+        // mais alguma coisa?
     };
 
     ///*
@@ -15,6 +13,7 @@ var Times = function () {
     // Ele deve requisitar time usando o valor do id que está no atributo 'id-objeto'
     ///*
     var editarItem = function () {
+        
         var $this = $(this);
         var $id = $this.attr('id-objeto');
 
@@ -24,11 +23,9 @@ var Times = function () {
             url: API_URL + '/times/v1/times/' + $id,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $('#nome').val(data.nome);
-                $('#integrantes').val(data.integrantes);
-                $('#baseCiandt').val(data.baseCiandt);
+            success: function (data) {                
                 $('#id-time').val(data.id);
+                // algo mais?
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -63,10 +60,9 @@ var Times = function () {
             url: API_URL + '/times/v1/times?alt=json',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                limparFormulario();
-                carregarLista();
+            success: function (data) {                                
                 bootbox.alert('Cadastrado/Editado com sucesso!');
+                // só isso!?
             },
             error: function (xhr) {
                 bootbox.alert(xhr.responseJSON.error.message);
@@ -93,12 +89,10 @@ var Times = function () {
             if (result) {
                 $.ajax({
                     async: true,
-                    type: "DELETE",
-                    url: API_URL + '/times/v1/times/' + $id,
+                    type: "DELETE",                    
                     dataType: "JSON",
                     processData: true,
-                    success: function (data) {
-                        carregarLista();
+                    success: function (data) {                        
                         bootbox.alert('Removido com sucesso!');
                     },
                     error: function (xhr) {
@@ -136,7 +130,7 @@ var Times = function () {
         $.ajax({
             async: true,
             type: "GET",
-            url: API_URL + '/times/v1/times/',
+            url: API_URL,
             dataType: "JSON",
             processData: true,
             success: function (data) {
@@ -147,8 +141,7 @@ var Times = function () {
 
                     $.each(data.items, function (i, item) {
                         var tr = $('<tr/>');
-                        tr.append("<td>" + item.nome + "</td>");
-                        tr.append("<td>" + item.integrantes + "</td>");
+                        tr.append("<td>" + item.nome + "</td>");                        
                         tr.append("<td>" + item.baseCiandt + "</td>");
 
                         var template = "<td>";
@@ -178,7 +171,7 @@ var Times = function () {
         //Função principal que inicializa o módulo
         inicializar: function () {
             $('#btn-cadastrar').click(cadastrarItem);
-            carregarLista();
+            /// seria bom ver algo já quando inicializar?
         }
     };
 } ();
