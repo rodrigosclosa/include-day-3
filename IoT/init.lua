@@ -1,0 +1,1 @@
+dofile("init.lc")
