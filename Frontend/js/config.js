@@ -8,7 +8,7 @@ var ID_SIRENE_BH = '19:fe:34:e0:3d:9e';
 var ID_SIRENE_CAMPINAS = '18:fe:34:e0:3d:9d';
 
 /// chave da API do Google Maps
-var API_KEY = "AIzaSyCOfscKjGzCub_QJrbXTV8PWS2TP9ayPs4";
+var API_KEY = "removido por segurança";
 
 /// configuração dos links do menu (tanto lateral como no topo)
 var MENU = {
