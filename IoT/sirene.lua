@@ -18,7 +18,7 @@ local delay_time = 10000
 
 local host = "api.iot.ciandt.com"
 local port = 80
-local apiurl = "v2/data/18:fe:34:e0:3d:9d/last"
+local apiurl = "v2/data/{ID}/last"
 local secure_conn = 0
 local last_id = ""
 
@@ -29,8 +29,8 @@ gpio.write(gpio_sirene, gpio.LOW)
 gpio.write(gpio_led_vermelho, gpio.LOW)
 gpio.write(gpio_led_amarelo, gpio.LOW)
 
-wifi_SSID = "Chromecast"
-wifi_password = "Chromec@st"
+wifi_SSID = ""
+wifi_password = ""
 
 wifi.setmode(wifi.STATION)
 wifi.sta.config(wifi_SSID, wifi_password)
